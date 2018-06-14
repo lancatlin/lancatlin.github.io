@@ -1,397 +1,702 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
+    <!-- title -->
 
-  
-  <title>LancatServer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LancatServer">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="LancatServer">
-<meta property="og:locale" content="zh_TW">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LancatServer">
-  
-    <link rel="alternate" href="/atom.xml" title="LancatServer" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="lancatlin 林宏信">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="lancatlin 林宏信">
+    <meta name="keywords" content="LancatServer | lancatlin 林宏信">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>LancatServer</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180604 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180604 media="(max-width: 980px)">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">LancatServer</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">懶貓伺服器</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
+    
+        <body class="home-body">
+    
+    
+<header class="header index-header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <a class="home-link" href=/>LancatServer</a>
 </header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-2018科展回顧：序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/14/2018科展回顧：序/" class="article-date">
-  <time datetime="2018-06-14T13:28:18.000Z" itemprop="datePublished">2018-06-14</time>
-</a>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
     
-  </div>
-  <div class="article-inner">
+    <!-- 主页  -->
     
     
-      <header class="article-header">
+    <!-- 文章页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            LancatServer
+            <!-- 文章页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+                懶貓伺服器
+            
+            <!-- 文章页  -->
+            
+        </p>
+        <!-- 文章页meta -->
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/14/2018科展回顧：序/">2018科展回顧：序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>從寒假開始的科展到這個禮拜二終於結束了。</p>
-<p>以一般的科展作品來說，我們這件作品算是非常「年輕」的，主要研究時間就只有寒假開始後的三個禮拜而已，很短，更多的時間都是在做報告、做海報，準備口說。</p>
-<p>我們的研究主題是針對Arduino循線車，透過優化軟體來做出只需要單感測器的循線車。有玩Arduino的朋友應該知道，一般我們做循線最少都要兩個感測器，一個感測器不能分辨左右，怎麼循線？</p>
-<p>我們的循線感測器使用的是類比訊號，類比訊號在處理上麻煩了些，但卻可以得到更豐富的資訊。我們將感測器循在黑白交界處，如此一來只要亮度偏暗則可知道現在是偏向黑線，亮度偏亮則是遠離了黑線。透過此基礎，我們再融入了PID演算法，做出能夠跟傳統循線車媲美的循線車。</p>
-<p>我們作品的技術原理會在其他篇詳細說明。</p>
-<p>我們的這次研究，幾乎完全是學生完成的，我們的指導老師只要在報告製作以及口說上給予指導，研究內容是我們學生自行完成的，老師甚至沒看過我們的車子。</p>
-<p>在三個禮拜研究期結束後，便是冗長的報告製作，這是我最討厭的一段過程。我並非不會處理文書，但由於我越是在乎這件事，這對我的壓力越大。再來我沒有什麼處理研究報告的經驗，過去小六曾經參加過科展，但那次的報告幾乎是老師完成的。</p>
-<p>最大的壓力在於「你不做，沒有人會幫你完成」，過去小學的科展總有老師當靠山，我們不做，報告還是會生出來。但這一次不同，我們全部的工作都必須自己解決，不去做，它就只會死在那裡。</p>
-<p>在剛開始時，我還想將很多的內容放入報告中，於是就弄出一份很沒重點、雜亂無章的部落格。後來給了指導老師看，開始慢慢修正，經過幾次重構，才完成現在精簡的版面。</p>
-<p>編輯報告的過程非常疲憊，且沒有樂趣，令我很逃避。編輯海報亦是，將整篇報告的內容塞入小小的三張海報，光想就讓我疲憊，各式的文字處理(尤其是減少字量)非常的繁瑣，當初自己也一直拖延，直到最後清明連假才開始用生命在趕海報，驚險地完成。</p>
-<p>至於最後複審結果，我們得到了第三名，其實並不算厲害，因為機電進入複審只有八組，第一名取一位，第二名與第三名各取三位，因此實際上來講，也沒什麼大不了。</p>
-<p>我的科展回顧，預計將會分成四篇：</p>
-<ol>
-<li>原理篇：講解單感測器與PID演算法原理</li>
-<li>研究過程篇：記錄研究PID循線車的過程</li>
-<li>報告製作篇：記錄在書面報告、海報製作、口說準備的過程</li>
-<li>結語</li>
-</ol>
-<p>希望在科展結束後，記錄下這三個月來，我所學到的東西。</p>
-
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/14/2018科展回顧：序/" data-id="cjif3w53l0004h9783fhzjc4v" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
 
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
 
-  
-    <article id="post-長征-尋找沙漠之旅-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/10/長征-尋找沙漠之旅-1/" class="article-date">
-  <time datetime="2018-06-10T10:38:51.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/OurLiveWorld/">OurLiveWorld</a>
-  </div>
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
 
-  </div>
-  <div class="article-inner">
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main index-page">
     
     
-      <header class="article-header">
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/06/14/2018科展回顧：序/" >
+            
+                <span>2018科展回顧：序</span>
+        </a>
+        <div class="abstract-content">
+            從寒假開始的科展到這個禮拜二終於結束了。
+以一般的科展作品來說，我們這件作品算是非常「年輕」的，主要研究時間就只有寒假開始後的三個禮拜而已，很短，更多的時間都是在做報告、做海報，準備口說。
+我們的研究主題是針對Arduino循線車，透過優化軟體來做出只需要單感測器的循線車。有玩Arduino的朋友應該知道，一般我們做循線最少都要兩個感測器，一個感測器不能分辨左右，怎麼循線？
+我們的循線感測器使用的是類比訊號，類比訊號在處理上麻煩了些，但卻可以得到更豐富的資訊。我們將感測器循在黑白交界處，如此一來只要亮度偏暗則可知道現在是偏向黑線，亮度偏亮則是遠離了黑線。透過此基礎，我們再融入了PID演算...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/14</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/06/10/長征-尋找沙漠之旅-1/" >
+            
+                <span>長征 尋找沙漠之旅（一）</span>
+        </a>
+        <div class="abstract-content">
+            — OurLiveWorld 我們的生存故事
+這是Minecraft的冒險故事系列，每篇將記載在我們世界中的一場冒險。
+
+星期日邀請二姐 Andrea來我們的世界，這天Andrea突然想玩麥塊，於是我們就一同騎馬去旅行，尋找沙漠。沙漠是不適合生存的，但是夜晚的沙漠十分美麗，而且有些稀有的資源，於是我們此次旅行就以沙漠為目標。
+我們是騎馬旅行的，在我們的居所是天然的馬棲息地，憑藉我過去辛苦打來的裝備，我們擁有兩個鞍以及鑽石和黃金馬鎧。 說實在之所以要旅行也只是因為要找事做，麥塊跟其他遊戲不一樣，不會有固定的遊戲進度給你做，我們的冒險目前也有些卡關，需要收集更多的終界之眼。
+老實說我們一開始...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/10</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Minecraft">Minecraft</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "OurLiveWorld">OurLiveWorld</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/06/10/hello-world/" >
+            
+                <span>Hello World</span>
+        </a>
+        <div class="abstract-content">
+            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick StartCreate a new post1$ hexo new "My New Post"
+More info: Writing
+Run server1$ hexo server
+More...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/10</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    <!-- paginator  -->
+    
+</main>
+            <!-- profile -->
+            
+            <div class="profile">
+    <img class="profile-avatar" src= /avatar/2.png >
+    <div class="profile-name">lancatlin 林宏信</div>
+    
+    <div class="profile-signature">
+        witness me
+    </div>
+    
+    
+    <div class="profile-social">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/10/長征-尋找沙漠之旅-1/">長征 尋找沙漠之旅（一）</a>
-    </h1>
-  
-
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="—-OurLiveWorld-我們的生存故事"><a href="#—-OurLiveWorld-我們的生存故事" class="headerlink" title="— OurLiveWorld 我們的生存故事"></a>— OurLiveWorld 我們的生存故事</h2><blockquote>
-<p>這是Minecraft的冒險故事系列，每篇將記載在我們世界中的一場冒險。</p>
-</blockquote>
-<p>星期日邀請二姐 Andrea來我們的世界，這天Andrea突然想玩麥塊，於是我們就一同騎馬去旅行，尋找沙漠。沙漠是不適合生存的，但是夜晚的沙漠十分美麗，而且有些稀有的資源，於是我們此次旅行就以沙漠為目標。</p>
-<p>我們是騎馬旅行的，在我們的居所是天然的馬棲息地，憑藉我過去辛苦打來的裝備，我們擁有兩個鞍以及鑽石和黃金馬鎧。 說實在之所以要旅行也只是因為要找事做，麥塊跟其他遊戲不一樣，不會有固定的遊戲進度給你做，我們的冒險目前也有些卡關，需要收集更多的終界之眼。</p>
-<p>老實說我們一開始是想要去找終界傳送門的，那時候帶著一顆終界之眼，以為一顆就可以帶我們找到，想不到才使用兩次它就破了。 破了，但也沒有備用的了，那就去旅行吧！我們就不管，朝著原先終界之眼指向的方向繼續前進。</p>
-<p>在我們的家後方的山脈，裡面是杉木林，在Minecraft的所有樹林中，我最喜歡的就是杉木林了，理由其實也挺老套，因為樹幹與樹葉的顏色很和諧，樹幹又高，葉子也不多，有如高緯度地區的針葉林，很優雅。</p>
-<p>在裡面穿梭不久，我們遇到了狼群。狼被馴服後是很有用的，當你戰鬥時，狼會為你而戰。可惜我們為了節省空間，並沒有攜帶用來馴服狼的骨頭，在討論後，我們決定晚一天啟程，先回家裡拿骨頭，再出發。回到了那片森林，我和Andrea各馴服了兩隻狼，有兩隻往後就能生更多小狼。</p>
-<h2 id="雪山"><a href="#雪山" class="headerlink" title="雪山"></a>雪山</h2><p>在穿越了幾處森林後，我們到達了一處雪山。我們下馬玩雪，在路途中我有收集到南瓜，於是我們拿鏟子挖了些雪，開始堆雪人。</p>
-<p>Andrea以前沒看過雪，覺得很新奇，就拿著雪球到處亂丟動物，在我堆好雪人之後，我們的攻擊目標就轉移到雪人身上了。對雪人丟雪球很有趣，你會看到它被打到後跳一下。我想要試試看能不能把雪人的南瓜頭脫下來，於是走上前去用手打它，我忘記我有狼了，我的狼就衝上去把它給咬死了……，我們看著這荒謬的結果，兩個人大笑起來，超級沒有意義，我們就這樣很沒有意義的過了一個白天。</p>
-<p>夜晚很快的降臨了，為了更好的視野，我們爬上山頂，由於山地不適合連夜趕路，於是我們停在山上，插上幾根火把就算是紮營了。之所以不睡覺，是為了保持家裡的重生點，所以每每出外旅行，我們都不會帶床的。由於是騎馬，所以在晚上趕路其實不太危險，看到怪物只要快速通過即可，不需要戰鬥，如果真的要戰鬥也不會在馬背上，一方面攻擊力下降，二方面難操作又會怕傷到馬。 為了餵飽我們的一群狼，在沿路上我們也獵殺了許多動物，晚上紮營就是烤肉的最佳時刻。沒想到會需要烤肉，所以當初也沒有帶煤炭，幸好煤炭「俯拾皆是」，我們在附近的山壁上就挖掘到了足以使用的煤炭。</p>
-<p>在夜晚過了約莫一半，天空開始下雪了，白色雪花從天空中緩緩的旋轉、飄落，比起下雨等其他天氣，下雪真的十分美麗。我們看到白天為了堆雪人而鏟開的地面，又漸漸的覆蓋上一層潔白的雪。從山頂望去，盡是杉木林與一座又一座的山頭，仰頭望向天空，看到一大片雪花從漆黑的天空落下，繞著我們打轉。這正是為什麼我喜歡杉木林與雪山，高緯度地區雖然不適合生存，但是有種極簡的美。</p>
-<h2 id="寒漠"><a href="#寒漠" class="headerlink" title="寒漠"></a>寒漠</h2><p>白天後，我們下山繼續前進。看到眼見所及之內全部都是雪地，但是我們的海拔明明已經沒那麼高了，遠處還看見冰川與北極熊，我傻住了，我們竟然到了寒漠。</p>
-<p>寒漠是一個類似北極的地方，一大片一望無際的雪地，就像是沙漠改成下雪了一般。寒漠中的河流與湖泊都會凍結成冰，人可以行走在上面。走一走還能在路上遇到北極熊，幸好在Minecraft裡牠不是保育類動物。 北極熊不好惹，我之前知道牠是中立生物（註1），想不到我只是離牠很近，牠就開始攻擊我了。我的狼看到我被攻擊，全部衝上前去，結果一群動物在打群架。北極熊的血很厚，而且攻擊力很痛，我的狼群有幾隻被打到快掛了。幸好最後還是把牠給殺死了，往後為了避免再發生這種危險的戰事，我和Andrea都離北極熊遠遠的。</p>
-<p>我們抵達寒漠後，開始懷疑自己走的方向是不是正確的？</p>
-<blockquote>
-<p> 「你確定要走這？我們都已經走到寒漠了，怎麼想都是在遠離沙漠」<br> 「麥塊應該沒有緯度這種設計，我想我們一直走還是能到達的」</p>
-</blockquote>
-<p>馬在寒漠中挺好走的，對馬而言最難走的莫過於樹林，尤其是矮小的樺木與橡木林，常常卡住頭，寸步難行。在寒漠中，不但沒有卡住頭的問題，河都結冰了，可以很方便的過河。</p>
-<p>註1 中立生物：一個生物在某些條件下才具有攻擊性稱為中立生物，例如野狼、蜘蛛、終界使者、殭屍豬人等。</p>
-<h2 id="那是…骷公"><a href="#那是…骷公" class="headerlink" title="那是…骷公!?"></a>那是…骷公!?</h2><p>在寒漠中的第一天晚上，我們在寒漠上隨便找了個地方落腳，點了些火把，就靜靜的一邊烤肉，一邊等著白天。<br> 突然，我被弓箭給攻擊了，我的狼群衝了出去，要找攻擊者。我跟著出去，看到一個從沒見過的生物。</p>
-<blockquote>
-<p>「天啊!那是…骷公嗎!?」</p>
-</blockquote>
-<p>眼前一個身穿破爛綠袍的人形生物，他眼睛是白色的，身上的衣服破得像是綠藻黏在身上，手持一把弓，現在正架著弓箭瞄準我。 我想要追上前，但腳步似乎被拖住，變得很慢。</p>
-<p>我的狼看到了它，衝上前去追趕。這生物似乎也知道要怕狼，竟然放下手上弓箭，開始逃命。 我就待在原地，看著一個衣衫襤褸的莫名生物被我的一大群狼追趕，這個畫面非常逗趣，平常神氣的骷公，在狼群的追逐下也不得不屈服。 那個形似骷髏的生物後來朝向我這跑來，我便拿起我的附魔鑽劍，將他給斬殺，結束他這荒謬的一生。 我打開背包，找到之前腳步變慢的原因，原來我中了緩速效果(註1)，在殺死這個奇怪生物後，我撿到了一支「緩速之箭」（註2）。</p>
-<p>事後我上網查，原來這個生物是「流浪者」，骷公的變種，專門生於寒漠地區。實際上這種生物是很危險的，因為你被射中後跑不快，很難接近它，只是因為我有狼，才會那麼好打。</p>
-<p>註1 緩速效果：為麥塊中的藥水效果之一，使人速度變慢。 註2 緩速之箭：藥水箭之一，被射中後會得到緩速效果</p>
-<h2 id="大陸邊際"><a href="#大陸邊際" class="headerlink" title="大陸邊際"></a>大陸邊際</h2><p>我們就這樣日以繼夜的不停趕路，(夜晚也可以走，由於速度很快，不擔心怪物來襲)，在大概走了三天後，我們走出了寒漠。</p>
-<blockquote>
-<p>「這是…」</p>
-</blockquote>
-<p>我們到達了海岸，但是一眼望去完全看不到陸地，眼前只有一整片波濤洶湧的大海。 這下子可真的麻煩了，我們騎馬，沒有辦法過水用划船的。 但是我們仍然不放棄，繼續繞路，穿越了幾座森林，勉強的朝向第一象限邁進，但每次繞路後，總是又碰到了大海，不然就根本是在走回頭路。</p>
-<p>這樣子繞路了幾天，有一次，我們穿越了一大片樺木林，到達海邊。 那天我們紮營的位置很糟，在一個陡峭的小山丘上，周圍又滿滿的樹，連好好停馬的位置都沒有。</p>
-<p>那天晚上我們烤著肉，一邊應付從四周來的零星怪物，眼看著第一象限的方向一眼望盡全部都是大海。</p>
-<blockquote>
-<p>「我想…我們回頭吧！」</p>
-</blockquote>
-<h2 id="回程"><a href="#回程" class="headerlink" title="回程"></a>回程</h2><p>我們決定要返家了，當我們要回頭時，座標已經離家有好一段距離，約莫3500座標單位。<br> 我們筆直的朝向家的方向 — 第三象限前進，不過可以預知到一個一個問題，會碰到海。我們來的時候走得是彎彎曲曲，遇到海就繞路，但是一路上我們並沒有紀錄座標，因此很難沿著過去走的路原路回家。 一開始還算順遂，在走出樹林後，再度回到了寒漠中，但是在寒漠中快速奔馳不久，就撞海了。</p>
-<p>時間也不早了，由於隔天還要上課，我們便在此登出。</p>
-<h2 id="登入，擦槍走火"><a href="#登入，擦槍走火" class="headerlink" title="登入，擦槍走火"></a>登入，擦槍走火</h2><p>真實世界的時間過了幾天，由於Andrea平時晚上要練團，沒時間玩，所以我就找Ken來玩她的帳號，希望能早日返家。<br> 先前我們在玩其他的世界，是有PVP的(註1)，切換時在伺服器忘記將PVP設定關掉。</p>
-<blockquote>
-<p>「打屁喔!」</p>
-</blockquote>
-<blockquote>
-<p>「欸欸!你的狼在咬我!」</p>
-</blockquote>
-<p>當我們登入時，我們彼此都有7, 8隻狼，Ken不熟悉操作，不小心敲到我，結果他的所有狼瞬間蜂擁而上，從四面八方發狂似的攻擊我。我的狼也不惶多讓，立刻加入戰鬥，捍衛主人的生命。結果我們就兩群狼展開了大火拚。</p>
-<p>狼的數量太多，我和Ken都被打得快死了，但我們還是沒有還手，畢竟那都是我們的狼，最難打的敵人就是自己人啊! 終於，Ken被殺死了，有一些狼似乎隨著他順移到了家裡，但是Ken離開後狼群們仍然在持續火拼，我趕緊把他tp過來(註2)，但是我們也搞不清楚哪隻狼是誰的，最後他們終於停止了攻擊。</p>
-<p>我們清點了一下各自的狼，兩個人分別站開，看看狼會跟著哪個主人。結果剩下的三頭狼紛紛投靠了Ken，我這邊竟然一隻都沒有。在開始大戰之前，我的狼數量還比Ken多的，現在竟然一隻狼都沒活著。</p>
-<p>好阿！沒有狼就沒有狼！我會怕嗎？話雖然這麼說，但看著Ken有一整群的狼軍隊（或許用幫派更為貼切），而我只是單獨一個流浪漢，還是會羨慕。</p>
-<p>註1 PVP：遊戲設定，玩家之間允許對戰<br>註2 tp：tp為傳送指令，是作弊行為</p>
-<h2 id="小島，出海"><a href="#小島，出海" class="headerlink" title="小島，出海"></a>小島，出海</h2><p>出了寒漠不過多久，我們又遇到了海。</p>
-<p>我們穿越了一座橡木林，想不到又是海洋，我們停在臨海的一座沙洲。</p>
-<blockquote>
-<p>「這下子真的沒完沒了，家的方向就直接朝著大海了」</p>
-</blockquote>
-<blockquote>
-<p>「那要不要出海去看看？」</p>
-</blockquote>
-<p>我們決定先派一個人出海去看看有沒有陸地，如果很近的話可以鋪橋過去。因為Ken不想在岸上顧動物，於是就由他出海。我在岸上殺動物準備餵狼的肉。</p>
-<blockquote>
-<p>「有看到陸地嗎？」</p>
-</blockquote>
-<blockquote>
-<p>「沒有，完全沒有」</p>
-</blockquote>
-<p>他朝著目標方向航行了三四百公尺，竟然連大陸的影子都沒看到，變折返了。<br> 如果大陸在那麼遠的話，那可能鋪橋很困難，因為我們沒有那麼多的建材，假設有500公尺，就必須準備500/64 約為 8 打的石頭（註1），我們在旅行的過程都是盡量清空背包的，哪來這麼多石頭來鋪橋？</p>
-<p>註1 一打64個：在麥塊中，由於一個空間至多可以放64個物品，所以我們將64個稱作一打</p>
-<h2 id="再見！夥伴們"><a href="#再見！夥伴們" class="headerlink" title="再見！夥伴們"></a>再見！夥伴們</h2><p>最後，我們決定要拋下動物們，乘船離開。由於已經迷失來時的方向，我現在已經不想在這片荒野待更久了，唯一的遺憾是必須拋棄動物們。</p>
-<p>我們帶著狼去最後一次打獵，將他們餵飽。將馬的鞍與馬鎧脫下，讓牠們自由去吃草。 收拾了在沙洲的營地，將烤肉的熔爐給收起，做出了兩人的船，即將離開這裡。</p>
-<p>心裡還是有些不捨，尤其對那兩批馬，我的馬牠雖然跳不高，但是跑得很快，是不可多求的一批快馬。可是現在也已經沒有別的辦法，我們迷失在這片土地中，要返家就只剩這個方法了。</p>
-<blockquote>
-<p>「很遺憾沒辦法帶你們回去，如果有機會再來，我會來找你們的。」</p>
-</blockquote>
-<p>我們出航，Ken的狼紛紛跑到岸邊，想要追上我們，但是他們游泳速度遠跟不上船。 我們朝向第一象限的方向前進，正如Ken所說，航行了一段時間都沒有看見陸地，大概走了將近800單位後才看到了一塊陸地，我們繼續在河道航行。 等到我們終於下船時，距離大概只剩下1000出頭了，我們就用跑的，一路上衝刺，無論日夜。</p>
-<p>一路上，我看到了一些熟悉的地景，是我們來時所見的，很明顯，這裡的確是回來的路。 最後，我們再次的穿過那片杉木林、那片雪山，還看見了來時的那些狼。</p>
-<p>我們穿梭在這片杉木林，最終在視野的盡頭看到了一絲光線。</p>
-<blockquote>
-<p>「我們到家了了！」</p>
-</blockquote>
-<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>這篇文章是Minecraft系列故事的第一篇，希望大家會喜歡，本文的故事是近期發生的，未來將會把過去的故事也慢慢補上。</p>
-<p>本文也是我用Markdown寫文章的第一次嘗試，這次主要草稿是在Hackmd上面撰寫，再把這個章節放到部落格中，由於Hackmd是草稿，恕不提供網址給大家。未來全系列完結後將會公開。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/10/長征-尋找沙漠之旅-1/" data-id="cjif3w53v0006h978ttfamqbf" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Minecraft/">Minecraft</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OurLiveWorld/">OurLiveWorld</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/10/hello-world/" class="article-date">
-  <time datetime="2018-06-10T10:30:37.731Z" itemprop="datePublished">2018-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/10/hello-world/" data-id="cjif3w53h0002h978h1psmfcx" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-</section>
         
-          <aside id="sidebar">
-  
+            
+                <a href="https://github.com/lancatlin" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/OurLiveWorld/">OurLiveWorld</a></li></ul>
-    </div>
-  </div>
-
-
-  
+        
+            
+                <a href="https://medium.com/@lancatlin" class="iconfont-archer medium" target="_blank" title=medium></a>
+            
+        
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minecraft/">Minecraft</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OurLiveWorld/">OurLiveWorld</a></li></ul>
-    </div>
-  </div>
-
-
-  
+        
+            
+                <a href="https://facebook.com/lancatserver" class="iconfont-archer facebook" target="_blank" title=facebook></a>
+            
+        
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Minecraft/" style="font-size: 10px;">Minecraft</a> <a href="/tags/OurLiveWorld/" style="font-size: 10px;">OurLiveWorld</a>
-    </div>
-  </div>
-
-  
+        
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
+        
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
         
-          <li>
-            <a href="/2018/06/14/2018科展回顧：序/">2018科展回顧：序</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/10/長征-尋找沙漠之旅-1/">長征 尋找沙漠之旅（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/10/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+    
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 lancatlin 林宏信<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
-  </div>
+    
+    
+    
+</div>
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+    
+        
+            
+                <a href="https://github.com/lancatlin" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <a href="https://medium.com/@lancatlin" class="iconfont-archer medium" target="_blank" title=medium></a>
+            
+        
+    
+        
+            
+                <a href="https://facebook.com/lancatserver" class="iconfont-archer facebook" target="_blank" title=facebook></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
 </footer>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    <!-- toc -->
     
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 3
+        <!-- search  -->
+        </div>
+            <div class="site-search popup-trigger">
+                <span class="iconfont-archer search-icon">&#xe627;</span>
+            </div>
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/06/10/hello-world/" >Hello World</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2018/06/14/2018科展回顧：序/" >2018科展回顧：序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/2018/06/10/長征-尋找沙漠之旅-1/" >長征 尋找沙漠之旅（一）</a>
+        </li>
+    
+    </div>
   </div>
-</body>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="2018科展回顧"><span class="iconfont-archer">&#xe606;</span>2018科展回顧</span>
+    
+        <span class="sidebar-tag-name" data-tags="Minecraft"><span class="iconfont-archer">&#xe606;</span>Minecraft</span>
+    
+        <span class="sidebar-tag-name" data-tags="OurLiveWorld"><span class="iconfont-archer">&#xe606;</span>OurLiveWorld</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="OurLiveWorld"><span class="iconfont-archer">&#xe60a;</span>OurLiveWorld</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "lancatlin 林宏信"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+     
+    </body>
 </html>
+
+
