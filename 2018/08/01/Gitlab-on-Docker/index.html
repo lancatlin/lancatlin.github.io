@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="lancatlin 林宏信">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="lancatlin 林宏信">
+    <meta name="keywords" content="LancatServer | lancatlin 林宏信">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab · LancatServer</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180604 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180604 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/LOGO.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >LancatServer</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>LancatServer</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/LOGO.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">2,177</span> / Reading time: <span class="post-count">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/08/01</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="問題摘要："><a href="#問題摘要：" class="headerlink" title="問題摘要："></a>問題摘要：</h2><ul>
+<li>Docker 無法使用 –volume 將資料夾掛載，顯示 read-only<ul>
+<li>改成使用mount type=bind沒用</li>
+<li>改成使用資料卷容器有用，但是無法執行</li>
+</ul>
+</li>
+<li>將 /etc/gitlab/gitlab.rb 設定external_url後重啟容器，無法連上網頁。reconfigure也無效</li>
+<li>Docker-compose 無法啟動，問題同第一點</li>
+</ul>
+<h2 id="系統環境"><a href="#系統環境" class="headerlink" title="系統環境"></a>系統環境</h2><ul>
+<li>硬體（年齡超過七年）:<ul>
+<li>主機板：Dell 0RY206 </li>
+<li>CPU:  AMD Athlon(tm) 64 X2 Dual Core Processor 4400+</li>
+<li>RAM: 2G</li>
+</ul>
+</li>
+<li>軟體：<ul>
+<li>作業系統：Ubuntu Server 18.04</li>
+<li>Docker: 17.06.2-ce</li>
+<li>Gitlab Image: gitlab/gitlab-ce:latest</li>
+</ul>
+</li>
+<li>網路：<ul>
+<li>浮動IP</li>
+<li>使用No-ip DDNS服務取得 domain name</li>
+<li>機器在內網中，路由器將此伺服器設定為外網IP以連上外網</li>
+</ul>
+</li>
+</ul>
+<h2 id="問題詳細描述"><a href="#問題詳細描述" class="headerlink" title="問題詳細描述"></a>問題詳細描述</h2><p>Docker 執行 gitlab 正常，但是當開啟專案後在clone連結會出現docker本身的hostname (一大串英文數字組成的亂碼)。並且不能使用ssh push(因為port沒有打開22)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name gitlab -p 8888:80 gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure></p>
+<p>刪掉後重新run一次。這次加入了hostname參數，雖然亂碼改成了正確hostname，但由於我的port是開在8888，因此還是不正確。這時候查到要用exec 進入去修改　/etc/gitlab/gitlab.rb<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it gitlab /bin/bash</span><br><span class="line"># vim /etc/gitlab/gitlab.rb</span><br><span class="line">------以下為修改處---------</span><br><span class="line">external_url &apos;http://[我的host]:8888/&apos;</span><br><span class="line"></span><br><span class="line">itlab_rails[&apos;gitlab_ssh_host&apos;] = &apos;[我的host]:222&apos;</span><br></pre></td></tr></table></figure></p>
+<p>設定完成後restart，重啟後久久還是看不到網頁，於是又去翻logs，結果看到輸出寫需要執行：gitlab-ctl reconfigure，但執行後出現以下錯誤：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">Running handlers:</span><br><span class="line">There was an error running gitlab-ctl reconfigure:</span><br><span class="line"></span><br><span class="line">bash[migrate gitlab-rails database] (gitlab::database_migrations line 49) had an error: Mixlib::ShellOut::ShellCommandFailed: Expected process to exit with [0], but received &apos;1&apos;</span><br><span class="line">---- Begin output of &quot;bash&quot;  &quot;/tmp/chef-script20180715-18-hk1m59&quot; ----</span><br><span class="line">STDOUT: rake aborted!</span><br><span class="line">StandardError: An error has occurred, this and all later migrations canceled:</span><br><span class="line"></span><br><span class="line">PG::DuplicateTable: ERROR:  relation &quot;labels&quot; already exists</span><br><span class="line">: CREATE TABLE &quot;labels&quot; (&quot;id&quot; serial primary key, &quot;title&quot; character varying, &quot;color&quot; character varying, &quot;project_id&quot; integer, &quot;created_at&quot; timestamp, &quot;updated_at&quot; timestamp) </span><br><span class="line">/opt/gitlab/embedded/service/gitlab-rails/db/migrate/20140729134820_create_labels.rb:6:in `change&apos;</span><br><span class="line">/opt/gitlab/embedded/service/gitlab-rails/lib/tasks/gitlab/db.rake:50:in `block (3 levels) in &lt;top (required)&gt;&apos;</span><br><span class="line">/opt/gitlab/embedded/bin/bundle:23:in `load&apos;</span><br><span class="line">/opt/gitlab/embedded/bin/bundle:23:in `&lt;main&gt;&apos;</span><br><span class="line"></span><br><span class="line">Caused by:</span><br><span class="line">ActiveRecord::StatementInvalid: PG::DuplicateTable: ERROR:  relation &quot;labels&quot; already exists</span><br><span class="line">: CREATE TABLE &quot;labels&quot; (&quot;id&quot; serial primary key, &quot;title&quot; character varying, &quot;color&quot; character varying, &quot;project_id&quot; integer, &quot;created_at&quot; timestamp, &quot;updated_at&quot; timestamp) </span><br><span class="line">/opt/gitlab/embedded/service/gitlab-rails/db/migrate/20140729134820_create_labels.rb:6:in `change&apos;</span><br><span class="line">/opt/gitlab/embedded/service/gitlab-rails/lib/tasks/gitlab/db.rake:50:in `block (3 levels) in &lt;top (required)&gt;&apos;</span><br><span class="line">/opt/gitlab/embedded/bin/bundle:23:in `load&apos;</span><br><span class="line">/opt/gitlab/embedded/bin/bundle:23:in `&lt;main&gt;&apos;</span><br><span class="line"></span><br><span class="line">Caused by:</span><br><span class="line">PG::DuplicateTable: ERROR:  relation &quot;labels&quot; already exists</span><br><span class="line">/opt/gitlab/embedded/service/gitlab-rails/db/migrate/20140729134820_create_labels.rb:6:in `change&apos;</span><br><span class="line">/opt/gitlab/embedded/service/gitlab-rails/lib/tasks/gitlab/db.rake:50:in `block (3 levels) in &lt;top (required)&gt;&apos;</span><br><span class="line">/opt/gitlab/embedded/bin/bundle:23:in `load&apos;</span><br><span class="line">/opt/gitlab/embedded/bin/bundle:23:in `&lt;main&gt;&apos;</span><br><span class="line">Tasks: TOP =&gt; db:migrate</span><br><span class="line">(See full trace by running task with --trace)</span><br><span class="line">== 20140729134820 CreateLabels: migrating =====================================</span><br><span class="line">-- create_table(:labels)</span><br><span class="line">STDERR: </span><br><span class="line">---- End output of &quot;bash&quot;  &quot;/tmp/chef-script20180715-18-hk1m59&quot; ----</span><br><span class="line">Ran &quot;bash&quot;  &quot;/tmp/chef-script20180715-18-hk1m59&quot; returned 1</span><br><span class="line"></span><br><span class="line">Running handlers complete</span><br><span class="line">Chef Client failed. 98 resources updated in 02 minutes 01 seconds</span><br></pre></td></tr></table></figure></p>
+<p>我實在看不懂，也查不到原因，於是我就將此容器刪除了。</p>
+<h3 id="無法使用資料卷"><a href="#無法使用資料卷" class="headerlink" title="無法使用資料卷"></a>無法使用資料卷</h3><p>我發現每次啟動容器資料都會重置，因此我按照<a href="https://docs.gitlab.com/omnibus/docker/#run-the-image" target="_blank" rel="noopener">官網</a>的指令去打，想要用資料卷來儲存資料。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run --detach \</span><br><span class="line">    --hostname [我的host] \</span><br><span class="line">    --publish 443:443 --publish 8888:80 --publish 222:22 \</span><br><span class="line">    --name gitlab \</span><br><span class="line">    --restart always \</span><br><span class="line">    --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">    --volume /srv/gitlab/logs:/var/log/gitlab \</span><br><span class="line">    --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">    gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure></p>
+<p>我更改的部份有hostname、80 port改到8888、22 port改到222。其他一致。<br>接著執行後剛閃出容器id，就爆出錯誤。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker: Error response from daemon: </span><br><span class="line">error while creating mount source path &apos;/srv/gitlab/logs&apos;: mkdir /srv/gitlab: </span><br><span class="line">read-only file system.</span><br></pre></td></tr></table></figure></p>
+<p>我試著自行先將資料夾mkdir，以及將權限設定成777，都沒辦法解決。接下來我去查詢<a href="https://docs.docker.com/storage/volumes/#create-and-manage-volumes" target="_blank" rel="noopener">Docker官網</a>Volume的使用方式。<br>看到的資料顯示，要使用資料卷有–volume跟–mount 兩種參數。根據官網的說法，在17.06之後的Docker建議使用–mount。</p>
+<blockquote>
+<p>New users should try –mount syntax which is simpler than –volume syntax.</p>
+</blockquote>
+<p>由於前面使用–volume出問題，我這次就改成用mount試試看。我照官網文件下方的一個範例更改我的指令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 官網範例</span><br><span class="line"><span class="meta">$</span> docker run -d \</span><br><span class="line">  --name devtest \</span><br><span class="line">  --mount source=myvol2,target=/app \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 我的指令</span><br><span class="line"><span class="meta">$</span> docker run --detach \</span><br><span class="line">        -it \</span><br><span class="line">        --hostname [我的host] \</span><br><span class="line">        --publish 443:443 --publish 8888:80 --publish 222:22 \</span><br><span class="line">        --name gitlab \</span><br><span class="line">        --restart always \</span><br><span class="line">        --mount source=config,target=/etc/gitlab \</span><br><span class="line">        --mount source=logs,target=/var/log/gitlab \</span><br><span class="line">        --mount source=data,target=/var/opt/gitlab \</span><br><span class="line">        gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+<p>我的指令大致與前一次相同，只是將-v之處改成了mount。在執行後才發現這個指令會建立資料卷在docker的目錄，而非原本我設想的/src中，但先不管這個問題，反正都能達到目標。<br>啟動之後，忘記發生什麼事了。將logs搬出來看，發現還是跳出了read-only這個問題。我使用直接找資料卷的路徑改設定檔。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># vim /var/snap/docker/common/var-lib-docker/volumes/config/_data/gitlab.rb</span><br><span class="line">------以下為修改處---------</span><br><span class="line">external_url &apos;http://[我的host]:8888/&apos;</span><br><span class="line"></span><br><span class="line">itlab_rails[&apos;gitlab_ssh_host&apos;] = &apos;[我的host]:222&apos;</span><br></pre></td></tr></table></figure></p>
+<p>設定完成後restart，重啟後久久還是看不到網頁，於是又去翻logs，結果看到輸出寫需要執行：gitlab update-permissons。執行失敗（忘記原因），將容器刪除。<br>這時在網路上查到我真正想要用的bind方法，照著找到<a href="https://deepzz.com/post/the-docker-volumes-basic.html" target="_blank" rel="noopener">網頁</a>打：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 網站範例</span><br><span class="line">$ docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name devtest \</span><br><span class="line">  --mount type=bind,source=&quot;$(pwd)&quot;/target,target=/app \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 我的指令</span><br><span class="line"><span class="meta">#</span> docker run --detach \</span><br><span class="line">        -it \</span><br><span class="line">        --hostname [我的host] \</span><br><span class="line">        --publish 443:443 --publish 8888:80 --publish 222:22 \</span><br><span class="line">        --name gitlab \</span><br><span class="line">        --restart always \</span><br><span class="line"><span class="meta">#</span> 重點</span><br><span class="line">        --mount type=bind,source=/srv/gitlab/config,target=/etc/gitlab \</span><br><span class="line">        --mount type=bind,source=/srv/gitlab/logs,target=/var/log/gitlab \</span><br><span class="line">        --mount type=bind,source=/srv/gitlab/data,target=/var/opt/gitlab \</span><br><span class="line">        </span><br><span class="line">        gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+<p>修改之處在source的連結，我使用的是系統絕對路徑，以及target的位置。<br><strong>執行後輸出source路徑錯誤。</strong>，無法執行。<br><em>#我尚未嘗試使用”$(pwd)”做前綴</em></p>
+<h3 id="docker-compose-結果同-v"><a href="#docker-compose-結果同-v" class="headerlink" title="docker-compose　結果同　-v"></a>docker-compose　結果同　-v</h3><p>這時我在<a href="https://docs.gitlab.com/omnibus/docker/#install-gitlab-using-docker-compose" target="_blank" rel="noopener">Gitlab官網範例</a>中找到可以使用docker-compose來建立，於是我下載官方範例，並進行些微修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># Gitlab範例</span><br><span class="line">web:</span><br><span class="line">  image: &apos;gitlab/gitlab-ce:latest&apos;</span><br><span class="line">  restart: always</span><br><span class="line">  hostname: &apos;gitlab.example.com&apos;</span><br><span class="line">  environment:</span><br><span class="line">    GITLAB_OMNIBUS_CONFIG: |</span><br><span class="line">      external_url &apos;https://gitlab.example.com&apos;</span><br><span class="line">      # Add any other gitlab.rb configuration here, each on its own line</span><br><span class="line">  ports:</span><br><span class="line">    - &apos;80:80&apos;</span><br><span class="line">    - &apos;443:443&apos;</span><br><span class="line">    - &apos;22:22&apos;</span><br><span class="line">  volumes:</span><br><span class="line">    - &apos;/srv/gitlab/config:/etc/gitlab&apos;</span><br><span class="line">    - &apos;/srv/gitlab/logs:/var/log/gitlab&apos;</span><br><span class="line">    - &apos;/srv/gitlab/data:/var/opt/gitlab&apos;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 我的修改檔</span><br><span class="line">web:</span><br><span class="line">  image: &apos;gitlab/gitlab-ce:latest&apos;</span><br><span class="line">  restart: always</span><br><span class="line">  hostname: &apos;[我的host]&apos;  #將host 改成自己的</span><br><span class="line">  environment:</span><br><span class="line">    GITLAB_OMNIBUS_CONFIG: |</span><br><span class="line">            external_url &apos;http://[我的host]:8888&apos;  #將port設定為8888</span><br><span class="line">            gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 222　</span><br><span class="line">            #將ssh port 設定為222</span><br><span class="line">  ports:</span><br><span class="line">    - &apos;8888:80&apos;　#修改port</span><br><span class="line">    - &apos;443:443&apos;</span><br><span class="line">    - &apos;222:22&apos;</span><br><span class="line">  volumes:</span><br><span class="line">    - &apos;/srv/gitlab/config:/etc/gitlab&apos;</span><br><span class="line">    - &apos;/srv/gitlab/logs:/var/log/gitlab&apos;</span><br><span class="line">    - &apos;/srv/gitlab/data:/var/opt/gitlab&apos;</span><br></pre></td></tr></table></figure>
+<p>運行後跳出錯誤：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Starting root_web_1 ... error</span><br><span class="line"></span><br><span class="line">ERROR: for root_web_1  Cannot start service web: b&quot;error while creating mount source path &apos;/srv/gitlab/logs&apos;: mkdir /srv/gitlab: read-only file system&quot;</span><br><span class="line"></span><br><span class="line">ERROR: for web  Cannot start service web: b&quot;error while creating mount source path &apos;/srv/gitlab/logs&apos;: mkdir /srv/gitlab: read-only file system&quot;</span><br><span class="line">ERROR: Encountered errors while bringing up the project.</span><br></pre></td></tr></table></figure></p>
+<p>看起來跟最原先-v的結果是相似的，我也就不想試了。</p>
+<h2 id="修改-etc-gitlab-gitlab-rb後無法重啟"><a href="#修改-etc-gitlab-gitlab-rb後無法重啟" class="headerlink" title="修改/etc/gitlab/gitlab.rb後無法重啟"></a>修改/etc/gitlab/gitlab.rb後無法重啟</h2><p>最終我放棄使用資料卷，打算單純先使用容器來儲存資料就好。<br>使用指令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># docker run -d --name gitlab -p 8888:80 -p 443:443 -p 222:22 --hostname [我的host] gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure></p>
+<p>這樣讓它跑大概五分鐘，就可以看到網頁了。但是建立repo後clone連結仍然沒有加上port（因為未設定），因此我再用exec進入容器去修改參數。<br>同樣只調整url和ssh url兩項設定，調整內容同前面所提過的。在調整完後，使用docker restart gitlab ，等待大約三分鐘仍然沒有反應，於是我進去檢查log，我不確定是否它有提示我reconfigure，總之我做了，這一次有成功執行完畢，但是執行完後仍然顯示不出網頁，重啟也一樣。<br>我觀察log，發現一直會有跳出GET訊息，還有某某json的訊息，抱歉我沒有將內容擷取下來。</p>
+<hr>
+<p>我的嘗試就到此為止了，之所以使用Docker安裝是由於過去曾經直接安裝，但是發生很多錯誤（一直維持在503），想說透過Docker應該可以避免掉不少環境影響。</p>
+<p>謝謝你看到這邊，如果你知道如何解決，懇請你告訴我！如果我的描述還有什麼需要補充的地方也歡迎跟我說。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yoursite.com">lancatlin 林宏信</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/08/01/Gitlab-on-Docker/">http://yoursite.com/2018/08/01/Gitlab-on-Docker/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/08/01/Gitlab-on-Docker/">August 1st 2018, 6:35:52</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/08/01/FireWheel0/" title= 序 FireWheel火輪手槍 >
+                    <div class="prevTitle">序 FireWheel火輪手槍</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+    
+        
+            
+                <a href="https://github.com/lancatlin" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <a href="https://medium.com/@lancatlin" class="iconfont-archer medium" target="_blank" title=medium></a>
+            
+        
+    
+        
+            
+                <a href="https://facebook.com/lancatserver" class="iconfont-archer facebook" target="_blank" title=facebook></a>
+            
+        
+    
+        
+            
+                <a href="https://t.me/lancatserver" class="iconfont-archer telegram" target="_blank" title=telegram></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#問題摘要："><span class="toc-number">1.</span> <span class="toc-text">問題摘要：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系統環境"><span class="toc-number">2.</span> <span class="toc-text">系統環境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#問題詳細描述"><span class="toc-number">3.</span> <span class="toc-text">問題詳細描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#無法使用資料卷"><span class="toc-number">3.1.</span> <span class="toc-text">無法使用資料卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-compose-結果同-v"><span class="toc-number">3.2.</span> <span class="toc-text">docker-compose　結果同　-v</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改-etc-gitlab-gitlab-rb後無法重啟"><span class="toc-number">4.</span> <span class="toc-text">修改/etc/gitlab/gitlab.rb後無法重啟</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 5
+        <!-- search  -->
+        </div>
+            <div class="site-search popup-trigger">
+                <span class="iconfont-archer search-icon">&#xe627;</span>
+            </div>
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/08/01/Gitlab-on-Docker/" >問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2018/08/01/FireWheel0/" >序 FireWheel火輪手槍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2018/06/18/21earlyday/" >二十一天的連續早起</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2018/06/14/2018科展回顧：序/" >2018科展回顧：序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/2018/06/10/長征-尋找沙漠之旅-1/" >長征 尋找沙漠之旅（一）</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="2018科展回顧"><span class="iconfont-archer">&#xe606;</span>2018科展回顧</span>
+    
+        <span class="sidebar-tag-name" data-tags="life"><span class="iconfont-archer">&#xe606;</span>life</span>
+    
+        <span class="sidebar-tag-name" data-tags="Minecraft"><span class="iconfont-archer">&#xe606;</span>Minecraft</span>
+    
+        <span class="sidebar-tag-name" data-tags="OurLiveWorld"><span class="iconfont-archer">&#xe606;</span>OurLiveWorld</span>
+    
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="FireWheel"><span class="iconfont-archer">&#xe60a;</span>FireWheel</span>
+    
+        <span class="sidebar-category-name" data-categories="OurLiveWorld"><span class="iconfont-archer">&#xe60a;</span>OurLiveWorld</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "lancatlin 林宏信"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

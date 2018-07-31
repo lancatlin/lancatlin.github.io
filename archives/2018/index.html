@@ -339,6 +339,52 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2018/08/01/Gitlab-on-Docker/" >
+            
+                <span>問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</span>
+        </a>
+        <div class="abstract-content">
+            問題摘要：
+Docker 無法使用 –volume 將資料夾掛載，顯示 read-only
+改成使用mount type=bind沒用
+改成使用資料卷容器有用，但是無法執行
+
+
+將 /etc/gitlab/gitlab.rb 設定external_url後重啟容器，無法連上網頁。reconfigure也無效
+Docker-compose 無法啟動，問題同第一點
+
+系統環境
+硬體（年齡超過七年）:
+主機板：Dell 0RY206 
+CPU:  AMD Athlon(tm) 64 X2 Dual Core Processor 4400+
+RAM: 2G
+
+
+軟體：
+作業系統：Ubuntu S...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/01</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2018/08/01/FireWheel0/" >
             
                 <span>序 FireWheel火輪手槍</span>
@@ -354,29 +400,6 @@ FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊�
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/07/15/Gitlab-on-Docker/" >
-            
-                <span>Gitlab on Docker</span>
-        </a>
-        <div class="abstract-content">
-            
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/15</span>
             </div>
             <!-- tags  -->
             
@@ -596,6 +619,8 @@ FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊�
     
     
     
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 5
@@ -611,17 +636,26 @@ FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊�
     
     
     
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/08/01/Gitlab-on-Docker/" >問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2018/08/01/FireWheel0/" >序 FireWheel火輪手槍</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">07/15</span><a class="archive-post-title" href= "/2018/07/15/Gitlab-on-Docker/" >Gitlab on Docker</a>
         </li>
     
     
@@ -651,6 +685,8 @@ FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊�
         <span class="sidebar-tag-name" data-tags="Minecraft"><span class="iconfont-archer">&#xe606;</span>Minecraft</span>
     
         <span class="sidebar-tag-name" data-tags="OurLiveWorld"><span class="iconfont-archer">&#xe606;</span>OurLiveWorld</span>
+    
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

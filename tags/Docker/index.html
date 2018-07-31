@@ -339,30 +339,40 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/06/10/長征-尋找沙漠之旅-1/" >
+        <a class="abstract-title" href = "/2018/08/01/Gitlab-on-Docker/" >
             
-                <span>長征 尋找沙漠之旅（一）</span>
+                <span>問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</span>
         </a>
         <div class="abstract-content">
-            — OurLiveWorld 我們的生存故事
-這是Minecraft的冒險故事系列，每篇將記載在我們世界中的一場冒險。
+            問題摘要：
+Docker 無法使用 –volume 將資料夾掛載，顯示 read-only
+改成使用mount type=bind沒用
+改成使用資料卷容器有用，但是無法執行
 
-星期日邀請二姐 Andrea來我們的世界，這天Andrea突然想玩麥塊，於是我們就一同騎馬去旅行，尋找沙漠。沙漠是不適合生存的，但是夜晚的沙漠十分美麗，而且有些稀有的資源，於是我們此次旅行就以沙漠為目標。
-我們是騎馬旅行的，在我們的居所是天然的馬棲息地，憑藉我過去辛苦打來的裝備，我們擁有兩個鞍以及鑽石和黃金馬鎧。 說實在之所以要旅行也只是因為要找事做，麥塊跟其他遊戲不一樣，不會有固定的遊戲進度給你做，我們的冒險目前也有些卡關，需要收集更多的終界之眼。
-老實說我們一開始...
+
+將 /etc/gitlab/gitlab.rb 設定external_url後重啟容器，無法連上網頁。reconfigure也無效
+Docker-compose 無法啟動，問題同第一點
+
+系統環境
+硬體（年齡超過七年）:
+主機板：Dell 0RY206 
+CPU:  AMD Athlon(tm) 64 X2 Dual Core Processor 4400+
+RAM: 2G
+
+
+軟體：
+作業系統：Ubuntu S...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/10</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/01</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Minecraft">Minecraft</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "OurLiveWorld">OurLiveWorld</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
     
 </div>
             
