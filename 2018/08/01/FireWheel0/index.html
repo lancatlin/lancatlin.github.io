@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="lancatlin 林宏信">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="lancatlin 林宏信">
+    <meta name="keywords" content="LancatServer | lancatlin 林宏信">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>序 FireWheel火輪手槍 · LancatServer</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180604 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180604 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/LOGO.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >LancatServer</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">序 FireWheel火輪手槍</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>LancatServer</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/LOGO.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            序 FireWheel火輪手槍
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">2,298</span> / Reading time: <span class="post-count">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/08/01</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <blockquote>
+<p>運用 Python 程式語言自行設計一款單人遊戲 —<strong>火輪手槍</strong>，介紹 Python 程式語言與 Scratch 的不同，並說明如何利用<strong>幾何</strong>、<strong>三角函數</strong>等數學原理解決遊戲中的實際問題，再以程式語言實踐。<br>本系列之目標讀者為無程式基礎的人。</p>
+</blockquote>
+<h2 id="FireWheel火輪手槍"><a href="#FireWheel火輪手槍" class="headerlink" title="FireWheel火輪手槍"></a>FireWheel火輪手槍</h2><p>FireWheel火輪手槍是我在寒假時製作的一個遊戲專案，當時是將它作為一個休閒來做。在寒假的時候我們在進行科展，當一天研究結束後，我就拿這個專案出來做，一做就又是好幾個小時。<br>這個遊戲對我的特別意義在於，<strong>這不是我第一次設計它</strong>，其實在我國一，還在使用Scratch時，我就曾經製作過。</p>
+<h3 id="遊戲說明"><a href="#遊戲說明" class="headerlink" title="遊戲說明"></a>遊戲說明</h3><p>火輪手槍是一個戰鬥遊戲，玩家在一個迷宮中，四面八方會出現怪物來攻擊你，你只能靠著身邊的一把手槍來生存下去。<br>這個遊戲最特別的就在於我獨創的「火輪」，這把火輪手槍會繞在你身邊，當你按下發射鍵時會停下，開始左右搖擺，鬆開後就會發射出子彈。<br>新手遇到這樣的操作多半是很不習慣，因為這很難瞄準，必須花很多心思在看那把槍的旋轉；但是當你操作順手之後，你就會愛上它，因為這很有挑戰性，相較於普通的滑鼠瞄準或者是朝向正前方，火輪更能突顯出玩家的技巧，因此更有成就感。</p>
+<h4 id="操作說明："><a href="#操作說明：" class="headerlink" title="操作說明："></a>操作說明：</h4><ul>
+<li>使用WSAD移動</li>
+<li>使用空白鍵發射</li>
+<li>使用JKL選取道具 （道具功能僅Beta版）<h3 id="成果預覽"><a href="#成果預覽" class="headerlink" title="成果預覽"></a>成果預覽</h3><iframe width="560" height="315" src="https://www.youtube.com/embed/l0J4UVALaQ4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+</li>
+</ul>
+<hr>
+<h3 id="淺談遊戲設計"><a href="#淺談遊戲設計" class="headerlink" title="淺談遊戲設計"></a>淺談遊戲設計</h3><p>這個遊戲是使用Python製作，Python是一門優秀的程式語言，很好學、語法簡單，我在去年暑假時接觸它，花了許多時間學習，到了今年寒假時，已經可以熟練的用它來開發專案。當時寒假無聊，沒事時就做火輪手槍當娛樂。<br>那在後續的文章中，我會逐步介紹<strong>碰撞檢測</strong>、<strong>三角函數</strong>這兩個主題</p>
+<h4 id="從scratch-到-Python"><a href="#從scratch-到-Python" class="headerlink" title="從scratch 到 Python"></a>從scratch 到 Python</h4><p>我的程式生涯是Scratch起家的，或許有人不承認Scratch是一門程式語言，但對我而言，是啟發我電腦研究生涯的重要推手。<br>在前面提到過，我曾經用Scratch開發過火輪手槍，但後期因為效能低落與程式架構維護不彰而停止開發。</p>
+<h4 id="Scratch-的優缺點"><a href="#Scratch-的優缺點" class="headerlink" title="Scratch 的優缺點"></a>Scratch 的優缺點</h4><p><strong>簡單</strong>。使用Scratch開發真的是簡單到不行，老實說在我用Scratch開發的時期，我根本很少去查資料，為什麼？  </p>
+<blockquote>
+<p>所有資料都在裡面了，還要查什麼？</p>
+</blockquote>
+<p>中文界面的Scratch編輯器，讓小學的我也能輕易理解，再加上一點的嘗試，很快就能完成一點皮毛。<br>以下列舉一些Scratch的優缺點</p>
+<h5 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h5><ul>
+<li>簡單好用的碰撞檢測</li>
+<li>將常用的幾何數學（如三角函數、畢氏定理）處理好</li>
+<li>可一邊修改程式一邊執行</li>
+<li><strong>容易學</strong></li>
+</ul>
+<h5 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h5><ul>
+<li>糟糕的自訂函數功能（可輸入參數，但沒辦法得到回傳值）</li>
+<li>分身一建立就回不來了（無法存取分身）</li>
+<li>沒有物件導向</li>
+<li>效能低落（當你的分身數到幾百個時，你就知道）</li>
+<li><strong>無法掌控的異步處理</strong></li>
+</ul>
+<p>雖然對我而言，Scratch非常的不便，但是它的設計初衷本來就是為了小朋友而設計，我所需要的那些功能已經不是它應該提供的了。因此在一年級的下學期，我就非常的積極想要學習更專業的程式語言，最後便選中了簡單易學的Python。</p>
+<p>那今天，我會將開發火輪手槍的過程中遇到的兩個問題挑出來講，分別是 碰撞檢測，及 三角函數。</p>
+<h3 id="Python-不「歹算」"><a href="#Python-不「歹算」" class="headerlink" title="Python 不「歹算」"></a>Python 不「歹算」</h3><p>Python是我第一門真正學會的程式語言。對我而言，Python是非常平易近人的，在學習Python之前，我其實想要學習的是 Java ，Java應該算是平常人比較常聽到的東西，因為打遊戲常常要裝。（誤）<br>當時曾經為了學Java買了一本書，很認真的讀，只是都沒有乖乖的做練習，只想要知道更多東西，後來沒學成，又繼續寫Scratch一個學期。<br>後來到了升二年級暑假前，剛好聽朋友提到Python，於是上網去試試看，一試不得了，整個開發環境、語法都非常的平易近人，花了兩天的時間就弄出了GUI來，（當然那時候根本只是照抄）。</p>
+<p>所以在二年級，我幾乎寫的都是Python，我也強力推薦對程式有興趣的朋友以Python開始，Python <strong>真的 不 「歹算」。</strong></p>
+<hr>
+<h2 id="物件導向基礎"><a href="#物件導向基礎" class="headerlink" title="物件導向基礎"></a>物件導向基礎</h2><p>電腦程式設計有許多種專家在研究多年所產生「編程範式」，你的程式符合編程範式，可以讓你的專案用更好的方式開發、或者讓日後容易維護、以及程式碼更容易閱讀。<br>有名的編程範式有：函數式程式設計、物件導向程式設計等等。在當代，物件導向程式設計最受推崇，不少資訊課程一定會教到，出去工作參與他人專案也幾乎都會遇到。</p>
+<p>物件導向程式設計的核心概念是：物件是程式的基本單位，將程式的執行過程視為一群物件的交流過程。</p>
+<p>使用物件導向來開發專案的好處是易於維護，物件導向的特性可以將代碼重用，事後修改也較輕鬆。那在我這個專案也不例外。</p>
+<p>接下來我會介紹物件導向中的「類與物件」，這只是物件導向的基礎，至於物件導向的詳細知識由於相當複雜，而且我也不敢保證自己完全理解，所以我就不在這次說明。</p>
+<h3 id="Class-類-以及-Object-物件"><a href="#Class-類-以及-Object-物件" class="headerlink" title="Class (類) 以及 Object (物件)"></a>Class (類) 以及 Object (物件)</h3><p>在剛剛提到，物件導向中的程式是由一群物件建構起來的，那該如何創造一個「物件」呢？</p>
+<p>答案是定義Class。Class，也就是類別，你可以將它視為物件的模板，在Class中你定義每個物件有著什麼<strong>屬性</strong>，會做什麼<strong>行為</strong>，然後你再建立此Class的實例，根據你給予的資料，就會產生不一樣的<strong>物件</strong>。</p>
+<p>舉例我們要建立一群殭屍，那這些殭屍或許每一隻的顏色不一樣，座標不一樣，但是它們的行為模式是一致的，這些殭屍就是我們產生的「物件」，而定義我們殭屍物件該如何行動的則是殭屍「類別」。</p>
+<h4 id="屬性-與-行為"><a href="#屬性-與-行為" class="headerlink" title="屬性 與 行為"></a>屬性 與 行為</h4><p>屬性是一個物件所帶有的資料，以殭屍為例會有座標、顏色、移動速度、血量等屬性，這些屬性有些是數字，有些是字串，有些甚至是別的物件；行為則是一個物件的行為，多半是一個函數，例如殭屍會移動、會死掉。</p>
+<p>屬性和行為的區分大多是明顯的，且在定義方式就有所不同。但是在某些語言例如Javascript，就直接將行為作為屬性。</p>
+<p>一個殭屍物件可能包含的屬性有：x, y座標、顏色、移動速度、血量等等，那它可能包含的行為有：靠近玩家、…抱歉殭屍這個類別它的行為真的很少。</p>
+<p>要存取物件的屬性或方法就是使用 <strong>.</strong> ，沒錯就是英文的句點，假如說你有一個Zombie的物件名叫my_zombie，你要讓它向玩家靠近，就使用 my_zombie.near()，如果你想存取它的座標，你就使用 my_zombie.x my_zombie.y</p>
+<h3 id="參考自己-—self"><a href="#參考自己-—self" class="headerlink" title="參考自己 —self"></a>參考自己 —self</h3><p>當我們在定義類別時，需要取得自己的屬性或方法，這時候無須再傳一個參數到函數中，在Python中，只要用 <strong>self</strong> 就可以存取自己的屬性了。</p>
+<p>假如今天這個函數是殭屍的物件方法，那self就會是存取殭屍的屬性；如果今天是玩家呼叫這個函數，那self就會存取玩家的屬性。有了self，我們就可以操作自己的屬性，而無須再多傳送自己進去。</p>
+<p>而呼叫自己的函數，在函數的最前面需要加上self參數。例如：殭屍要讓自己靠近玩家，self.near()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Zombie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.x = <span class="number">0</span></span><br><span class="line">        self.y = <span class="number">0</span></span><br><span class="line">        self.color = (<span class="number">180</span>, <span class="number">65</span>, <span class="number">120</span>)</span><br><span class="line">        self.speed = <span class="number">5</span></span><br><span class="line">        self.blood = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">near</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#靠近目標</span></span><br></pre></td></tr></table></figure>
+<p>而透過此類別產生物件則是：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zombie = Zombie()</span><br><span class="line">zombie.near()</span><br></pre></td></tr></table></figure></p>
+<p>在以下的介紹，有部份的參數是物件，例如碰撞檢測中的 circle, rect，或是會有一些程式實做在物件方法中，例如三角函數中的 near, move方法。</p>
+<hr>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yoursite.com">lancatlin 林宏信</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/08/01/FireWheel0/">http://yoursite.com/2018/08/01/FireWheel0/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/08/01/FireWheel0/">August 1st 2018, 6:25:41</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/07/15/Gitlab-on-Docker/" title= Gitlab on Docker >
+                    <div class="prevTitle">Gitlab on Docker</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+    
+        
+            
+                <a href="https://github.com/lancatlin" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <a href="https://medium.com/@lancatlin" class="iconfont-archer medium" target="_blank" title=medium></a>
+            
+        
+    
+        
+            
+                <a href="https://facebook.com/lancatserver" class="iconfont-archer facebook" target="_blank" title=facebook></a>
+            
+        
+    
+        
+            
+                <a href="https://t.me/lancatserver" class="iconfont-archer telegram" target="_blank" title=telegram></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#FireWheel火輪手槍"><span class="toc-number">1.</span> <span class="toc-text">FireWheel火輪手槍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#遊戲說明"><span class="toc-number">1.1.</span> <span class="toc-text">遊戲說明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#操作說明："><span class="toc-number">1.1.1.</span> <span class="toc-text">操作說明：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#成果預覽"><span class="toc-number">1.2.</span> <span class="toc-text">成果預覽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#淺談遊戲設計"><span class="toc-number">1.3.</span> <span class="toc-text">淺談遊戲設計</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#從scratch-到-Python"><span class="toc-number">1.3.1.</span> <span class="toc-text">從scratch 到 Python</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scratch-的優缺點"><span class="toc-number">1.3.2.</span> <span class="toc-text">Scratch 的優缺點</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#優點"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">優點</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#缺點"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">缺點</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-不「歹算」"><span class="toc-number">1.4.</span> <span class="toc-text">Python 不「歹算」</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#物件導向基礎"><span class="toc-number">2.</span> <span class="toc-text">物件導向基礎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Class-類-以及-Object-物件"><span class="toc-number">2.1.</span> <span class="toc-text">Class (類) 以及 Object (物件)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#屬性-與-行為"><span class="toc-number">2.1.1.</span> <span class="toc-text">屬性 與 行為</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#參考自己-—self"><span class="toc-number">2.2.</span> <span class="toc-text">參考自己 —self</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 8
+        <!-- search  -->
+        </div>
+            <div class="site-search popup-trigger">
+                <span class="iconfont-archer search-icon">&#xe627;</span>
+            </div>
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/06/26/即將離開科研社/" >即將離開科研社</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2018/08/01/FireWheel0/" >序 FireWheel火輪手槍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/15</span><a class="archive-post-title" href= "/2018/07/15/Gitlab-on-Docker/" >Gitlab on Docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2018/06/18/21earlyday/" >二十一天的連續早起</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2018/06/15/2018科展回顧-2/" >2018科展回顧：（二）研究過程篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2018/06/14/2018科展回顧：序/" >2018科展回顧：序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2018/06/14/2018科展回顧-1/" >2018科展回顧：（一）原理篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/2018/06/10/長征-尋找沙漠之旅-1/" >長征 尋找沙漠之旅（一）</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="2018科展回顧"><span class="iconfont-archer">&#xe606;</span>2018科展回顧</span>
+    
+        <span class="sidebar-tag-name" data-tags="Minecraft"><span class="iconfont-archer">&#xe606;</span>Minecraft</span>
+    
+        <span class="sidebar-tag-name" data-tags="OurLiveWorld"><span class="iconfont-archer">&#xe606;</span>OurLiveWorld</span>
+    
+        <span class="sidebar-tag-name" data-tags="life"><span class="iconfont-archer">&#xe606;</span>life</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="FireWheel"><span class="iconfont-archer">&#xe60a;</span>FireWheel</span>
+    
+        <span class="sidebar-category-name" data-categories="OurLiveWorld"><span class="iconfont-archer">&#xe60a;</span>OurLiveWorld</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "lancatlin 林宏信"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
