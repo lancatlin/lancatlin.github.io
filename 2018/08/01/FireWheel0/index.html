@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,369</span> / Reading time: <span class="post-count">8 min</span></span>
+                        <span>Word count: <span class="post-count">2,371</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -394,13 +394,13 @@ height:50vh;
 <p>運用 Python 程式語言自行設計一款單人遊戲 —<strong>火輪手槍</strong>，介紹 Python 程式語言與 Scratch 的不同，並說明如何利用<strong>幾何</strong>、<strong>三角函數</strong>等數學原理解決遊戲中的實際問題，再以程式語言實踐。<br>本系列之目標讀者為無程式基礎的人。<br><a href="https://github.com/lancatlin/FireWheel" target="_blank" rel="noopener">遊戲專案連結</a></p>
 </blockquote>
 <h2 id="目錄"><a href="#目錄" class="headerlink" title="目錄"></a>目錄</h2><ul>
-<li><a href="https://lancatlin.github.io/2018/08/01/FireWheel0/" target="_blank" rel="noopener">序</a></li>
+<li><a href="/2018/08/01/FireWheel0/">序</a></li>
 </ul>
 <p>碰撞檢測:</p>
 <ul>
-<li><a href="https://lancatlin.github.io/2018/08/01/FireWheel1/" target="_blank" rel="noopener">圓形對圓形</a></li>
-<li>矩形對矩形</li>
-<li>圓形對矩形</li>
+<li><a href="/2018/08/01/FireWheel1/">圓形對圓形</a></li>
+<li><a href="/2018/08/02/FireWheel2/">矩形對矩形</a></li>
+<li><a href="/2018/08/02/FireWheel2/#…那圓形對矩形呢？">圓形對矩形</a></li>
 </ul>
 <p>三角函數:</p>
 <ul>
@@ -459,9 +459,7 @@ height:50vh;
 <p>假如今天這個函數是殭屍的物件方法，那self就會是存取殭屍的屬性；如果今天是玩家呼叫這個函數，那self就會存取玩家的屬性。有了self，我們就可以操作自己的屬性，而無須再多傳送自己進去。</p>
 <p>而呼叫自己的函數，在函數的最前面需要加上self參數。例如：殭屍要讓自己靠近玩家，self.near()</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Zombie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.x = <span class="number">0</span></span><br><span class="line">        self.y = <span class="number">0</span></span><br><span class="line">        self.color = (<span class="number">180</span>, <span class="number">65</span>, <span class="number">120</span>)</span><br><span class="line">        self.speed = <span class="number">5</span></span><br><span class="line">        self.blood = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">near</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#靠近目標</span></span><br></pre></td></tr></table></figure>
-<p>而透過此類別產生物件則是：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zombie = Zombie()</span><br><span class="line">zombie.near()</span><br></pre></td></tr></table></figure>
-<p>在以下的介紹，有部份的參數是物件，例如碰撞檢測中的 circle, rect，或是會有一些程式實做在物件方法中，例如三角函數中的 near, move方法。</p>
+<p>而透過此類別產生物件則是：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">zombie = Zombie()</span><br><span class="line">zombie.near()</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>在以下的介紹，有部份的參數是物件，例如碰撞檢測中的 circle, rect，或是會有一些程式實做在物件方法中，例如三角函數中的 near, move方法。</p>
 <hr>
 
     </article>
@@ -479,8 +477,8 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/08/01/Gitlab-on-Docker/" title= 問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab >
-                    <div class="nextTitle">問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</div>
+                <a href= "/2018/08/01/FireWheel1/" title= 圓形碰撞檢測 FireWheel火輪手槍(一) >
+                    <div class="nextTitle">圓形碰撞檢測 FireWheel火輪手槍(一)</div>
                 </a>
             
         </li>
@@ -652,8 +650,6 @@ top:50vh;
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 6
@@ -669,22 +665,13 @@ top:50vh;
     
     
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 2018 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/08/01/Gitlab-on-Docker/" >問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</a>
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/2018/08/02/FireWheel2/" >矩形碰撞檢測 FireWheel火輪手槍(二)</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -718,13 +705,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="2018科展回顧"><span class="iconfont-archer">&#xe606;</span>2018科展回顧</span>
     
-        <span class="sidebar-tag-name" data-tags="life"><span class="iconfont-archer">&#xe606;</span>life</span>
-    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="Minecraft"><span class="iconfont-archer">&#xe606;</span>Minecraft</span>
     
         <span class="sidebar-tag-name" data-tags="OurLiveWorld"><span class="iconfont-archer">&#xe606;</span>OurLiveWorld</span>
+    
+        <span class="sidebar-tag-name" data-tags="life"><span class="iconfont-archer">&#xe606;</span>life</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

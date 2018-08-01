@@ -354,6 +354,38 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2018/08/02/FireWheel2/" >
+            
+                <span>矩形碰撞檢測 FireWheel火輪手槍(二)</span>
+        </a>
+        <div class="abstract-content">
+            矩形對矩形
+那今天如果是矩形之間的碰撞呢？雖然在我的遊戲中並沒有運用到矩形對矩形的碰撞，但是這算是碰撞檢測的基礎之一，因此我還是一併說明。
+#註：此處說明之矩形皆為不旋轉的矩形
+矩形對矩形的碰撞檢測需要用到「座標」的概念，總的來說，就是判斷兩個矩形的x範圍與y範圍有沒有重疊。只要x範圍與y範圍同時重疊了就代表這兩個矩形碰到了。同樣的，我們先來列出已知資訊：
+
+座標(x, y)
+長寬(w, h)
+
+註：矩形的表示方式 XYWH
+在電腦中，表示一個矩形的方法跟數學上有些許不同。首先，在電腦的座標系中，Y是向下增加的，這樣的座標系稱為「繪圖座標系」。在繪圖座標系之中，原點在螢幕的左上角，因此x...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/02</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2018/08/01/FireWheel1/" >
             
                 <span>圓形碰撞檢測 FireWheel火輪手槍(一)</span>
@@ -369,52 +401,6 @@ height:50vh;
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/01</span>
             </div>
             <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/01/Gitlab-on-Docker/" >
-            
-                <span>問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</span>
-        </a>
-        <div class="abstract-content">
-            問題摘要：
-Docker 無法使用 –volume 將資料夾掛載，顯示 read-only
-改成使用mount type=bind沒用
-改成使用資料卷容器有用，但是無法執行
-
-
-將 /etc/gitlab/gitlab.rb 設定external_url後重啟容器，無法連上網頁。reconfigure也無效
-Docker-compose 無法啟動，問題同第一點
-
-系統環境
-硬體（年齡超過七年）:
-主機板：Dell 0RY206 
-CPU:  AMD Athlon(tm) 64 X2 Dual Core Processor 4400+
-RAM: 2G
-
-
-軟體：
-作業系統：Ubuntu S...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
-    
-</div>
             
         </div>
     </article>
@@ -736,8 +722,6 @@ FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊�
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 6
@@ -753,22 +737,13 @@ FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊�
     
     
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 2018 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/08/01/Gitlab-on-Docker/" >問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</a>
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/2018/08/02/FireWheel2/" >矩形碰撞檢測 FireWheel火輪手槍(二)</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -802,13 +777,13 @@ FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊�
     
         <span class="sidebar-tag-name" data-tags="2018科展回顧"><span class="iconfont-archer">&#xe606;</span>2018科展回顧</span>
     
-        <span class="sidebar-tag-name" data-tags="life"><span class="iconfont-archer">&#xe606;</span>life</span>
-    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="Minecraft"><span class="iconfont-archer">&#xe606;</span>Minecraft</span>
     
         <span class="sidebar-tag-name" data-tags="OurLiveWorld"><span class="iconfont-archer">&#xe606;</span>OurLiveWorld</span>
+    
+        <span class="sidebar-tag-name" data-tags="life"><span class="iconfont-archer">&#xe606;</span>life</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
