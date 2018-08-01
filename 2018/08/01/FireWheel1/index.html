@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,224</span> / Reading time: <span class="post-count">4 min</span></span>
+                        <span>Word count: <span class="post-count">1,225</span> / Reading time: <span class="post-count">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,7 @@ height:50vh;
 <h4 id="完了…-Python沒有碰撞檢測"><a href="#完了…-Python沒有碰撞檢測" class="headerlink" title="完了… Python沒有碰撞檢測"></a>完了… Python沒有碰撞檢測</h4><p>可是問題來了，Python並沒有內建碰撞檢測。咦？！！你不是說用程式語言功能比較強大？怎麼連這個基礎的功能都沒有。<br>我們必須要釐清一件事，「碰撞檢測」這類事情是遊戲設計比較會遇到的，Python的主要使用是做資料運算，像是現在很夯的AI、深度學習等等。大部分會有碰撞檢測的工具是「遊戲框架」，框架這種東西就如字面上的意思，它已經幫你把整個專案架構給設計好了，你只要按照需求把剩餘的東西給填入就好。<br>至於Python上有的遊戲框架…實在不多，而且學習如何使用一個框架也是非常耗費心力的過程，於是最後我就決定自己寫碰撞檢測啦！</p>
 <p>在接下來的介紹中，我會按照各個形狀之間的碰撞檢測來做說明，之所以用形狀區分，由於我是用簡單的幾何圖形，例如：圓形、矩形，來進行碰撞檢測。是的，碰撞檢測在每種圖形的「算法」都不一樣，因為我的遊戲就只有圓形和矩形兩種形狀，因此僅實做圓形矩形之間的碰撞檢測。</p>
 <hr>
-<h3 id="當殭屍碰到了你-—圓形對圓形"><a href="#當殭屍碰到了你-—圓形對圓形" class="headerlink" title="當殭屍碰到了你 —圓形對圓形"></a>當殭屍碰到了你 —圓形對圓形</h3><img src="/2018/08/01/FireWheel1/circle_to_circle.svg.png" class="slug">
+<h2 id="當殭屍碰到了你-—圓形對圓形"><a href="#當殭屍碰到了你-—圓形對圓形" class="headerlink" title="當殭屍碰到了你 —圓形對圓形"></a>當殭屍碰到了你 —圓形對圓形</h2><img src="/2018/08/01/FireWheel1/circle_to_circle.svg.png" class="slug">
 <p><strong>要如何去偵測一個圓形是否碰到了另一個圓形呢？</strong><br>在我的遊戲中，例如怪物碰到了玩家，子彈射中了怪物，玩家被子彈射中等等，都是圓形與圓形的碰撞檢測。如果我們無法檢測這些，嗯…那這個遊戲大概會很無聊，因此我們要來實做圓形對圓形的碰撞檢測。</p>
 <p>首先，我們列出我們所知道的<strong>資訊</strong>：</p>
 <ul>
@@ -406,7 +406,8 @@ height:50vh;
 <p>就這樣？是的，就只要這樣。<br>我們利用圓的性質，由於邊長上的任何一點到圓心都等長，不管從那個角度相撞，撞擊點到圓心的距離都會是圓的半徑。<br>所以如果一個點距離圓心小於半徑，就代表跟它重疊了。<br>那由於有兩個圓，所以只要「兩個圓心的距離」小於「兩個圓的半徑之合」，就代表兩個圓重疊，也就是「碰到」了。</p>
 <p>至於如何取得兩點之間的距離，就是使用「畢氏定理」囉！在場的一年級應該還沒上到，礙於時間有限，我就只說重點。畢氏定理可以讓我們取得一個直角三角形的斜邊長，那我們兩個相異點之間的距離，其實就是以這兩點為頂點，畫出的直角三角形的斜邊。<br>畢氏定理數學公式：<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/7ef0a5a4b8ab98870ae5d6d7c7b4dfe3fb6612e2" alt=""><br>由此可得出：<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/2fef66265112bc5378959992887ca76314b1681e" alt=""></p>
 <img src="/2018/08/01/FireWheel1/circle_to_circle2.svg.png" class="slug">
-<p>以下為Python的實做：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">程式碼：計算c1與c2是否有相撞的函數</span></span><br><span class="line"><span class="string">輸入值：兩個「圓形物件」，分別帶有x座標(x)，y座標(y)，半徑(r)，三種屬性</span></span><br><span class="line"><span class="string">回傳值：true(代表有碰到) or false(代表沒碰到)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">circle_to_circle</span> <span class="params">(c1, c2)</span> :</span>     <span class="comment">#c1 c2分別為圓1,圓2</span></span><br><span class="line">    <span class="comment">#d為兩點距離</span></span><br><span class="line">    d = ((c1.x - c2.x) ** <span class="number">2</span> + (c1.y - c2.y) ** <span class="number">2</span>) ** <span class="number">0.5</span></span><br><span class="line">    <span class="keyword">return</span> d &lt; (c1.r + c2.r)</span><br><span class="line"></span><br><span class="line"><span class="comment">#c1.x 代表存取c1這個圓的x座標，以此類推</span></span><br><span class="line"><span class="comment">#Python的次方使用「**」來計算，開根號即為0.5次方</span></span><br><span class="line"><span class="comment">#程式語言中()與[]的意義不同，用於表示計算優先順序的一律為小括號</span></span><br><span class="line"><span class="comment">#撰寫者：林宏信 2018 7/21</span></span><br></pre></td></tr></table></figure></p>
+<p>以下為Python的實做：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">程式碼：計算c1與c2是否有相撞的函數</span></span><br><span class="line"><span class="string">輸入值：兩個「圓形物件」，分別帶有x座標(x)，y座標(y)，半徑(r)，三種屬性</span></span><br><span class="line"><span class="string">回傳值：true(代表有碰到) or false(代表沒碰到)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">circle_to_circle</span> <span class="params">(c1, c2)</span> :</span>     <span class="comment">#c1 c2分別為圓1,圓2</span></span><br><span class="line">    <span class="comment">#d為兩點距離</span></span><br><span class="line">    d = ((c1.x - c2.x) ** <span class="number">2</span> + (c1.y - c2.y) ** <span class="number">2</span>) ** <span class="number">0.5</span></span><br><span class="line">    <span class="keyword">return</span> d &lt; (c1.r + c2.r)</span><br><span class="line"></span><br><span class="line"><span class="comment">#c1.x 代表存取c1這個圓的x座標，以此類推</span></span><br><span class="line"><span class="comment">#Python的次方使用「**」來計算，開根號即為0.5次方</span></span><br><span class="line"><span class="comment">#程式語言中()與[]的意義不同，用於表示計算優先順序的一律為小括號</span></span><br><span class="line"><span class="comment">#撰寫者：林宏信 2018 7/21</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>圓形對圓形的碰撞檢測是碰撞檢測中的基礎，很實用也非常好理解。那接下來會繼續介紹矩形對矩形的碰撞檢測。</p>
 
     </article>
@@ -523,7 +524,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#遊戲的根本—碰撞檢測"><span class="toc-number">1.</span> <span class="toc-text">遊戲的根本—碰撞檢測</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#碰撞檢測為何重要？"><span class="toc-number">1.1.</span> <span class="toc-text">碰撞檢測為何重要？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#完了…-Python沒有碰撞檢測"><span class="toc-number">1.1.1.</span> <span class="toc-text">完了… Python沒有碰撞檢測</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#當殭屍碰到了你-—圓形對圓形"><span class="toc-number">1.2.</span> <span class="toc-text">當殭屍碰到了你 —圓形對圓形</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小結"><span class="toc-number">2.</span> <span class="toc-text">小結</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#遊戲的根本—碰撞檢測"><span class="toc-number">1.</span> <span class="toc-text">遊戲的根本—碰撞檢測</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#碰撞檢測為何重要？"><span class="toc-number">1.1.</span> <span class="toc-text">碰撞檢測為何重要？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#完了…-Python沒有碰撞檢測"><span class="toc-number">1.1.1.</span> <span class="toc-text">完了… Python沒有碰撞檢測</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#當殭屍碰到了你-—圓形對圓形"><span class="toc-number">2.</span> <span class="toc-text">當殭屍碰到了你 —圓形對圓形</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小結"><span class="toc-number">3.</span> <span class="toc-text">小結</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -536,8 +537,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
     
     
     
@@ -611,20 +610,6 @@ top:50vh;
     
     
     
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2018/08/01/FireWheel1/" >圓形碰撞檢測 FireWheel火輪手槍(一)</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
     <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
@@ -641,6 +626,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2018/08/01/FireWheel1/" >圓形碰撞檢測 FireWheel火輪手槍(一)</a>
+        </li>
     
     
         <li class="archive-post-item">
