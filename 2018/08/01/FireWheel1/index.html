@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>LancatServer</title>
+    <title>圓形碰撞檢測 FireWheel火輪手槍(一) · LancatServer</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=20180604 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180604 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -194,12 +196,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >LancatServer</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">圓形碰撞檢測 FireWheel火輪手槍(一)</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>LancatServer</a>
 </header>
@@ -213,24 +226,68 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/LOGO.png)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            圓形碰撞檢測 FireWheel火輪手槍(一)
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">1,224</span> / Reading time: <span class="post-count">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/08/01</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -331,217 +388,64 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/01/FireWheel1/" >
-            
-                <span>圓形碰撞檢測 FireWheel火輪手槍(一)</span>
-        </a>
-        <div class="abstract-content">
-            遊戲的根本—碰撞檢測碰撞檢測為何重要？
-一個好的遊戲中，有什麼是不可或缺的條件呢？除非你是開發桌遊或卡牌遊戲，否則你一定會需要 「碰撞檢測」 。碰撞檢測為何重要？想一想，今天你玩Minecraft，如果你碰不到東西，整個人像幽靈一樣開旁觀者飄來飄去，會好玩嗎？嘿嘿，其實挺好玩的，亂七八糟！如果Minecraft不會碰到東西，絕對不會有人想玩！那你隨便想以前的2D遊戲，例如超級馬力歐，馬力歐總要踩在地面吧？馬力歐也必須要碰到怪物會死掉，還得要用腳可以踩死怪物。那達成這些需要什麼？就是碰撞檢測，我們要能夠偵測「兩個物件相撞」這件事，而這個動作就稱為「碰撞檢測」。  
-碰撞檢測在scratch...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="遊戲的根本—碰撞檢測"><a href="#遊戲的根本—碰撞檢測" class="headerlink" title="遊戲的根本—碰撞檢測"></a>遊戲的根本—碰撞檢測</h2><h3 id="碰撞檢測為何重要？"><a href="#碰撞檢測為何重要？" class="headerlink" title="碰撞檢測為何重要？"></a>碰撞檢測為何重要？</h3><img src="/2018/08/01/FireWheel1/mario.svg" class="slug">
+<p>一個好的遊戲中，有什麼是不可或缺的條件呢？除非你是開發桌遊或卡牌遊戲，否則你一定會需要 <strong>「碰撞檢測」</strong> 。<br>碰撞檢測為何重要？想一想，今天你玩Minecraft，如果你碰不到東西，整個人像幽靈一樣開旁觀者飄來飄去，會好玩嗎？嘿嘿，其實挺好玩的，亂七八糟！如果Minecraft不會碰到東西，絕對不會有人想玩！<br>那你隨便想以前的2D遊戲，例如超級馬力歐，馬力歐總要踩在地面吧？馬力歐也必須要碰到怪物會死掉，還得要用腳可以踩死怪物。那達成這些需要什麼？就是碰撞檢測，我們要能夠偵測「兩個物件相撞」這件事，而這個動作就稱為「碰撞檢測」。  </p>
+<p>碰撞檢測在scratch的實踐是非常簡單的，你只要拉出「碰到XXX？」來偵測一個狀態，就可以處理碰撞檢測。</p>
+<h4 id="完了…-Python沒有碰撞檢測"><a href="#完了…-Python沒有碰撞檢測" class="headerlink" title="完了… Python沒有碰撞檢測"></a>完了… Python沒有碰撞檢測</h4><p>可是問題來了，Python並沒有內建碰撞檢測。咦？！！你不是說用程式語言功能比較強大？怎麼連這個基礎的功能都沒有。<br>我們必須要釐清一件事，「碰撞檢測」這類事情是遊戲設計比較會遇到的，Python的主要使用是做資料運算，像是現在很夯的AI、深度學習等等。大部分會有碰撞檢測的工具是「遊戲框架」，框架這種東西就如字面上的意思，它已經幫你把整個專案架構給設計好了，你只要按照需求把剩餘的東西給填入就好。<br>至於Python上有的遊戲框架…實在不多，而且學習如何使用一個框架也是非常耗費心力的過程，於是最後我就決定自己寫碰撞檢測啦！</p>
+<p>在接下來的介紹中，我會按照各個形狀之間的碰撞檢測來做說明，之所以用形狀區分，由於我是用簡單的幾何圖形，例如：圓形、矩形，來進行碰撞檢測。是的，碰撞檢測在每種圖形的「算法」都不一樣，因為我的遊戲就只有圓形和矩形兩種形狀，因此僅實做圓形矩形之間的碰撞檢測。</p>
+<hr>
+<h3 id="當殭屍碰到了你-—圓形對圓形"><a href="#當殭屍碰到了你-—圓形對圓形" class="headerlink" title="當殭屍碰到了你 —圓形對圓形"></a>當殭屍碰到了你 —圓形對圓形</h3><img src="/2018/08/01/FireWheel1/circle_to_circle.svg.png" class="slug">
+<p><strong>要如何去偵測一個圓形是否碰到了另一個圓形呢？</strong><br>在我的遊戲中，例如怪物碰到了玩家，子彈射中了怪物，玩家被子彈射中等等，都是圓形與圓形的碰撞檢測。如果我們無法檢測這些，嗯…那這個遊戲大概會很無聊，因此我們要來實做圓形對圓形的碰撞檢測。</p>
+<p>首先，我們列出我們所知道的<strong>資訊</strong>：</p>
+<ul>
+<li>x, y座標</li>
+<li>半徑</li>
+</ul>
+<p>就這樣？是的，就只要這樣。<br>我們利用圓的性質，由於邊長上的任何一點到圓心都等長，不管從那個角度相撞，撞擊點到圓心的距離都會是圓的半徑。<br>所以如果一個點距離圓心小於半徑，就代表跟它重疊了。<br>那由於有兩個圓，所以只要「兩個圓心的距離」小於「兩個圓的半徑之合」，就代表兩個圓重疊，也就是「碰到」了。</p>
+<p>至於如何取得兩點之間的距離，就是使用「畢氏定理」囉！在場的一年級應該還沒上到，礙於時間有限，我就只說重點。畢氏定理可以讓我們取得一個直角三角形的斜邊長，那我們兩個相異點之間的距離，其實就是以這兩點為頂點，畫出的直角三角形的斜邊。<br>畢氏定理數學公式：<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/7ef0a5a4b8ab98870ae5d6d7c7b4dfe3fb6612e2" alt=""><br>由此可得出：<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/2fef66265112bc5378959992887ca76314b1681e" alt=""></p>
+<img src="/2018/08/01/FireWheel1/circle_to_circle2.svg.png" class="slug">
+<p>以下為Python的實做：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">程式碼：計算c1與c2是否有相撞的函數</span></span><br><span class="line"><span class="string">輸入值：兩個「圓形物件」，分別帶有x座標(x)，y座標(y)，半徑(r)，三種屬性</span></span><br><span class="line"><span class="string">回傳值：true(代表有碰到) or false(代表沒碰到)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">circle_to_circle</span> <span class="params">(c1, c2)</span> :</span>     <span class="comment">#c1 c2分別為圓1,圓2</span></span><br><span class="line">    <span class="comment">#d為兩點距離</span></span><br><span class="line">    d = ((c1.x - c2.x) ** <span class="number">2</span> + (c1.y - c2.y) ** <span class="number">2</span>) ** <span class="number">0.5</span></span><br><span class="line">    <span class="keyword">return</span> d &lt; (c1.r + c2.r)</span><br><span class="line"></span><br><span class="line"><span class="comment">#c1.x 代表存取c1這個圓的x座標，以此類推</span></span><br><span class="line"><span class="comment">#Python的次方使用「**」來計算，開根號即為0.5次方</span></span><br><span class="line"><span class="comment">#程式語言中()與[]的意義不同，用於表示計算優先順序的一律為小括號</span></span><br><span class="line"><span class="comment">#撰寫者：林宏信 2018 7/21</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>圓形對圓形的碰撞檢測是碰撞檢測中的基礎，很實用也非常好理解。那接下來會繼續介紹矩形對矩形的碰撞檢測。</p>
+
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/01/Gitlab-on-Docker/" >
-            
-                <span>問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</span>
-        </a>
-        <div class="abstract-content">
-            問題摘要：
-Docker 無法使用 –volume 將資料夾掛載，顯示 read-only
-改成使用mount type=bind沒用
-改成使用資料卷容器有用，但是無法執行
-
-
-將 /etc/gitlab/gitlab.rb 設定external_url後重啟容器，無法連上網頁。reconfigure也無效
-Docker-compose 無法啟動，問題同第一點
-
-系統環境
-硬體（年齡超過七年）:
-主機板：Dell 0RY206 
-CPU:  AMD Athlon(tm) 64 X2 Dual Core Processor 4400+
-RAM: 2G
-
-
-軟體：
-作業系統：Ubuntu S...
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yoursite.com">lancatlin 林宏信</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/08/01/FireWheel1/">http://yoursite.com/2018/08/01/FireWheel1/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/08/01/FireWheel1/">August 1st 2018, 8:06:07</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/01/FireWheel0/" >
-            
-                <span>序 FireWheel火輪手槍(零)</span>
-        </a>
-        <div class="abstract-content">
-            
-運用 Python 程式語言自行設計一款單人遊戲 —火輪手槍，介紹 Python 程式語言與 Scratch 的不同，並說明如何利用幾何、三角函數等數學原理解決遊戲中的實際問題，再以程式語言實踐。本系列之目標讀者為無程式基礎的人。遊戲專案連結
-
-目錄
-序
-
-碰撞檢測:
-
-圓形對圓形
-矩形對矩形
-圓形對矩形
-
-三角函數:
-
-讓我朝向60度移動吧！
-叫那隻殭屍…給我滾開！！
-不～～為什麼它的槍一直瞄準我啦！
-把手槍變成三角形
-
-FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊戲專案，當時是將它作為一個休閒來做。在寒假的時候我們在進行科展，當一天研究結束後，我就拿...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/06/18/21earlyday/" >
-            
-                <span>二十一天的連續早起</span>
-        </a>
-        <div class="abstract-content">
-            
-我的21earlyday計畫終於在今天結束了。這21天，我做了生活中最大的改變，而這21天，我很享受。所以在這結束之後，我還是會持續下去。  
-
-什麼是21earlyday？它是一個Hashtag，連續21天早起的計畫。這個早起不是一般那種7點起床就算早起，而是4點5點那種，異於常人的早起。那為什麼是21天呢？因為（據說）21天是養成一個習慣的最短時間，所以當初創辦人就選定了這個時間。之所以有這個活動（而且挺多人響應），是為了改變生活。在我過去的日子，我是很難7點爬起來的，因為我很愛睡，但又捨不得那麼早睡，加上假日都晚睡晚起，所以讓我平常天的起床簡直痛不欲生。我其實並沒有很在乎這些，讓...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/18</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "life">life</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/06/14/2018科展回顧：序/" >
-            
-                <span>2018科展回顧：序</span>
-        </a>
-        <div class="abstract-content">
-            從寒假開始的科展到這個禮拜二終於結束了。
-以一般的科展作品來說，我們這件作品算是非常「年輕」的，主要研究時間就只有寒假開始後的三個禮拜而已，很短，更多的時間都是在做報告、做海報，準備口說。
-我們的研究主題是針對Arduino循線車，透過優化軟體來做出只需要單感測器的循線車。有玩Arduino的朋友應該知道，一般我們做循線最少都要兩個感測器，一個感測器不能分辨左右，怎麼循線？
-我們的循線感測器使用的是類比訊號，類比訊號在處理上麻煩了些，但卻可以得到更豐富的資訊。我們將感測器循在黑白交界處，如此一來只要亮度偏暗則可知道現在是偏向黑線，亮度偏亮則是遠離了黑線。透過此基礎，我們再融入了PID演算...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/14</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/06/10/長征-尋找沙漠之旅-1/" >
-            
-                <span>長征 尋找沙漠之旅（一）</span>
-        </a>
-        <div class="abstract-content">
-            — OurLiveWorld 我們的生存故事
-這是Minecraft的冒險故事系列，每篇將記載在我們世界中的一場冒險。
-
-星期日邀請二姐 Andrea來我們的世界，這天Andrea突然想玩麥塊，於是我們就一同騎馬去旅行，尋找沙漠。沙漠是不適合生存的，但是夜晚的沙漠十分美麗，而且有些稀有的資源，於是我們此次旅行就以沙漠為目標。
-我們是騎馬旅行的，在我們的居所是天然的馬棲息地，憑藉我過去辛苦打來的裝備，我們擁有兩個鞍以及鑽石和黃金馬鎧。 說實在之所以要旅行也只是因為要找事做，麥塊跟其他遊戲不一樣，不會有固定的遊戲進度給你做，我們的冒險目前也有些卡關，需要收集更多的終界之眼。
-老實說我們一開始...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/10</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Minecraft">Minecraft</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "OurLiveWorld">OurLiveWorld</a>
-    
-</div>
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/08/01/Gitlab-on-Docker/" title= 問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab >
+                    <div class="prevTitle">問題紀錄。在 Ubuntu Server 使用 Docker 安裝 Gitlab</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -603,6 +507,24 @@ FireWheel火輪手槍FireWheel火輪手槍是我在寒假時製作的一個遊�
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#遊戲的根本—碰撞檢測"><span class="toc-number">1.</span> <span class="toc-text">遊戲的根本—碰撞檢測</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#碰撞檢測為何重要？"><span class="toc-number">1.1.</span> <span class="toc-text">碰撞檢測為何重要？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#完了…-Python沒有碰撞檢測"><span class="toc-number">1.1.1.</span> <span class="toc-text">完了… Python沒有碰撞檢測</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#當殭屍碰到了你-—圓形對圓形"><span class="toc-number">1.2.</span> <span class="toc-text">當殭屍碰到了你 —圓形對圓形</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小結"><span class="toc-number">2.</span> <span class="toc-text">小結</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -824,6 +746,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
