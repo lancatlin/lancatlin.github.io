@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>矩形碰撞檢測 FireWheel火輪手槍(二) · LancatServer</title>
+    <title>移動 三角函數 FireWheel火輪手槍(三) · LancatServer</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >LancatServer</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">矩形碰撞檢測 FireWheel火輪手槍(二)</a>
+                <a href="#" class="post-name">移動 三角函數 FireWheel火輪手槍(三)</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            矩形碰撞檢測 FireWheel火輪手槍(二)
+            移動 三角函數 FireWheel火輪手槍(三)
             <!-- 404 -->
             
         </h1>
@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,948</span> / Reading time: <span class="post-count">7 min</span></span>
+                        <span>Word count: <span class="post-count">2,091</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -390,68 +390,41 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="矩形對矩形"><a href="#矩形對矩形" class="headerlink" title="矩形對矩形"></a>矩形對矩形</h2><img src="/2018/08/02/FireWheel2/rect_to_rect.svg.png" class="slug">
-<p>那今天如果是矩形之間的碰撞呢？雖然在我的遊戲中並沒有運用到矩形對矩形的碰撞，但是這算是碰撞檢測的基礎之一，因此我還是一併說明。</p>
-<p><em>#註：此處說明之矩形皆為<strong>不旋轉</strong>的矩形</em></p>
-<p>矩形對矩形的碰撞檢測需要用到「座標」的概念，總的來說，就是判斷兩個矩形的x範圍與y範圍有沒有<strong>重疊</strong>。只要x範圍與y範圍同時重疊了就代表這兩個矩形碰到了。<br>同樣的，我們先來列出已知資訊：</p>
-<ul>
-<li>座標(x, y)</li>
-<li>長寬(w, h)</li>
-</ul>
-<h3 id="註：矩形的表示方式-XYWH"><a href="#註：矩形的表示方式-XYWH" class="headerlink" title="註：矩形的表示方式 XYWH"></a>註：矩形的表示方式 XYWH</h3><img src="/2018/08/02/FireWheel2/rect_to_rect2.svg.png" class="slug">
-<p>在電腦中，表示一個矩形的方法跟數學上有些許不同。首先，在電腦的座標系中，Y是向下增加的，這樣的座標系稱為「繪圖座標系」。<br>在繪圖座標系之中，原點在螢幕的左上角，因此x向右增加，y向下增加。</p>
+        <h1 id="Move-Your-Body-—三角函數"><a href="#Move-Your-Body-—三角函數" class="headerlink" title="Move Your Body!! —三角函數"></a>Move Your Body!! —三角函數</h1><p>在遊戲中，各個角色例如玩家、怪物，都需要<strong>移動</strong>，如果是水平或垂直移動，那很容易，只要增減x, y座標即可達成；但如果今天要移動的方向並非0, 90, 45度，而是60度呢？</p>
+<p>或者，該如何找到朝向一個座標的<strong>方向</strong>？讓物件能夠行走到指定的位置。甚至是將座標旋轉，製造出可以旋轉的多邊形。</p>
+<p>這些，都需要利用<strong>三角函數</strong>。</p>
+<h3 id="三角函數是什麼？"><a href="#三角函數是什麼？" class="headerlink" title="三角函數是什麼？"></a>三角函數是什麼？</h3><p>正如同上面我所描述的各個需求，三角函數其實就是 <strong>「轉換長度與角度」</strong>。<br>想一想，今天我們要朝著一個角度移動，我們不就是要將這個「角度」給轉換成x與y分別移動的「長度」嗎？算出到一個座標的「角度」，也是將x與y的「長度」換算而來。</p>
+<p>因此，三角函數在遊戲開發中有著非常廣泛的用途，牽涉到一切物件的移動都需要依賴它。很幸運的，在Python中已經有開發好的函式庫，我只要呼叫並傳入數字就好，因此我們只需要專注在邏輯上面。</p>
+<h2 id="讓我朝著60度前進吧！"><a href="#讓我朝著60度前進吧！" class="headerlink" title="讓我朝著60度前進吧！"></a>讓我朝著60度前進吧！</h2><p>該如何讓玩家朝向60度前進？由於在遊戲中我們都是使用直角座標，因此我們要將「角度」以及「移動距離」轉換成x和y分別增加的量。這時就要使用三角函數最廣為人知的兩位大大：<strong>sin</strong> and <strong>cos</strong> !!</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Trigonometry_triangle_sim.png" alt=""><br>上圖連結自<a href="https://zh.wikipedia.org/zh-tw/%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">維基百科</a></p>
+<p>先談談一個三角形的各部位名稱，首先請看 角A ，角A這個角很重要，在接下來的說明中，我們所提到的「角度」都會是指這個角的角度，而這個角度我們就稱為 theta ，由於電腦沒辦法打出來，接下來我會以 angle 代稱之。<br>而圖中的 邊a 則是所謂的<strong>對邊</strong>，我們y座標的值就是對邊的長度；而邊b則是<strong>鄰邊</strong>，我們x座標的值就是鄰邊的長度。最後邊h，就是<strong>斜邊</strong>，我們前進的距離就是斜邊的長度。<br>那在這個例子中，我們就是要將 <em>a的角度 與 斜邊的長度</em> 替換成 <em>鄰邊與對邊的長度</em> 。</p>
+<p>那接下來介紹我們的幫手大大，首先是 <strong>sin</strong> 大大，sin大大會負責將我們的角度angle轉換成 斜邊為1時 對邊的長度，只要再將此數值乘上我們的斜邊長，就可以求出對邊長，也就是y座標的值了。<br>那 <strong>cos</strong> 大大其實做的也是差不多的工作，只是它負責的是鄰邊，也就是x。所以我們只要將cos所求出的值乘上斜邊長，就可以得到x的長度了。</p>
+<p>那該如何請這兩位大大工作呢？由於sin與cos兩位大大都是函數，我們只要將angle放入「括號」中，送給它們處理，它們計算完，就會告訴我們答案了，是不是很簡單呢？<br>但是如果你就這樣傻傻的直接把60傳給它，它可是會森77的喔！因為sin與cos以及全部的三角函數，使用的都不是我們平常習慣的，360一圈的「度」，而是「弧度」。</p>
+<h3 id="弧度"><a href="#弧度" class="headerlink" title="弧度"></a>弧度</h3><p>弧度跟度一樣，是一種角度單位，度是360為一個單位，而弧度則是2倍圓周率為一個圓。<br>聽起來…好像是有點討厭的東西，算個角度也要扯到圓周率？真是夠了。但其實弧度的定義是十分優雅而簡潔的：</p>
+<blockquote>
+<p>單位弧度定義為圓弧長度等於半徑時的圓心角<br>—維基百科</p>
+</blockquote>
+<p>哇…我到底看了什麼…簡單來說，就是當一個扇形，它的弧長跟半徑相等時，它的圓心角就稱為「一弧度」，而一弧度則約為57.2957795度…看了很討厭?沒關係我們是工程師，這種工作就交給電腦去算就好了。<br>一個完整的圓它的弧度就會是 2pi，我們要將60度換算成弧度，就是將 (60 / 360) * 2pi = <strong>60 * pi / 180</strong> 。<br>那我們就來寫一個換算的函數，來將「度」換成「弧度」。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">定義 函數 deg_to_rad 將「度(degree)」換為「弧度(rad)」</span></span><br><span class="line"><span class="string">輸入：度</span></span><br><span class="line"><span class="string">輸出：弧度</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">import</span> math    <span class="comment">#引用了Python的 數學庫</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deg_to_rad</span> <span class="params">(deg)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> deg * math.pi / <span class="number">180</span></span><br><span class="line"><span class="comment"># 其中的 math.pi 是一個定義在Python math 函式庫的常數，我們透過呼叫它來取得較精準的 pi 值。</span></span><br><span class="line"><span class="comment"># 實作者：林宏信</span></span><br></pre></td></tr></table></figure></p>
+<p>完成了弧度的處理，我們回到前面來計算三角函數。<br>大致的流程如下：將角度(angle)換為弧度(rad_angle)，再來將值分別傳入sin 與 cos 之中，將回傳值乘上移動距離(distance)，即可算出x, y分別須移動的量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">定義 move函數 用來計算朝angle角度移動distance距離須移動之x, y座標</span></span><br><span class="line"><span class="string">輸入：角度angle, 距離distance</span></span><br><span class="line"><span class="string">輸出: (x, y) 元組，可用 x, y = move(angle, distance)來接收回傳值</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.x = <span class="number">0</span></span><br><span class="line">        self.y = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">move</span> <span class="params">(angle, distance)</span>:</span></span><br><span class="line">        rad_angle = deg_to_rad(angle)</span><br><span class="line">        self.x += math.cos(rad_angle) * distance</span><br><span class="line">        self.y += math.sin(rad_angle) * distance</span><br><span class="line"><span class="comment"># 實做者：林宏信 2018-7-26</span></span><br></pre></td></tr></table></figure>
 <hr>
-<p>先退一步來講，在數線中，該如何判斷一條線與另一條線重疊？<br>我們可以用邊界的角度來思考，今天有兩條線段 AB線段, CD線段 在同一直線上，會有兩種情形，CD 在 AB 的左邊或者右邊。假如 CD 在 AB 右邊時，只要 C 比 B 還要左邊，就代表重疊了；假如 CD 在 AB 左邊，只要 D 比 A  還右，就代表重疊了。</p>
-<p>發現了嗎？只要我的左邊比你的右邊還左 and, 我的右邊比你的左邊還右，就代表我們站在前後了。<br><img src="/2018/08/02/FireWheel2/rect_to_rect3.svg.png" class="slug"></p>
-<p>那今天我們把左邊右邊換一個說法，在繪圖座標系中一個矩形的座標位置會是左上角，那這樣左邊就是x，右邊是x + w；上面是y，下面是y + h。<br>你沒聽錯，<strong>y愈上面愈小，y愈下面愈大</strong>，在電腦的<strong>繪圖座標系</strong>中確實如此。</p>
-<p>以下用 r1, r2 來代表矩形1、矩形2。<br>左邊在數線上通常是變小，因此就是小於。因此剛才的陳述就可以換成這樣：<br><strong>r1.x &lt; r2.x + r2.w</strong> # r1的左邊比r2的右邊還左（考慮r1在右時）<br><strong>r1.x + r1.w &gt; r2.x</strong> # r1的右邊比r2的左邊還右（考慮r1在左時）</p>
-<p>以上判斷可以讓我們知道r1與r2的x範圍是否有重疊，注意，這邊並不是判斷r1與r2的邊有沒有相交喔！</p>
-<p>那只判斷x範圍還不夠，我們還需要判斷y範圍有沒有重疊。y的判斷也一樣，只要照一樣的方式寫，把x換成y，w換成h就可以了。<br>由於y點在上方，所以愈上數字會愈小，只是表達的方式不同，但實際計算是沒有差別的。<br><strong>r1.y &lt; r2.y + r2.h</strong> # r1的上邊比r2的下邊還上（考慮r1在下時）<br><strong>r1.y + r1.h &gt; r2.y</strong> # r1的下邊比r2的上邊還下（考慮r1在上時）</p>
-<p>而這所有條件必須要全部符合才代表兩個矩形相撞，因此我們將每個條件用and連起來，就會只有在全部符合的時候才回傳true。<br>以下為Python實做：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">判斷矩形是否相交函數</span></span><br><span class="line"><span class="string">輸入：r1, r2兩個矩形物件</span></span><br><span class="line"><span class="string">r1與r2分別帶有 x, y, w, h四個屬性</span></span><br><span class="line"><span class="string">輸出：碰到(true), 沒碰到(false)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rect_to_rect</span> <span class="params">(r1, r2)</span> :</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        r1.x &lt; r2.x + r2.w <span class="keyword">and</span></span><br><span class="line">        r2.x &lt; r1.x + r1.w <span class="keyword">and</span></span><br><span class="line">        r1.y &lt; r2.y + r2.h <span class="keyword">and</span></span><br><span class="line">        r2.y &lt; r1.y + r1.h</span><br><span class="line">    )</span><br><span class="line"><span class="comment">#在函數裡為了排版整齊，我將第2及第4行的大小於順序調換，對程式執行是沒有差別的</span></span><br><span class="line"><span class="comment">#實作者：林宏信 2018 7/21</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="…那圓形對矩形呢？"><a href="#…那圓形對矩形呢？" class="headerlink" title="…那圓形對矩形呢？"></a>…那圓形對矩形呢？</h2><img src="/2018/08/02/FireWheel2/circle_to_rect.svg.png" class="slug">
-<p>在我的遊戲中有「牆壁」，是玩家與怪物都無法穿過的障礙物。玩家與怪物是圓形，而牆壁卻是矩形。完蛋了，現在不能用兩物件的距離，因為牆壁不是圓的；也不能用座標系重疊，因為圓形不是方的。<br>沒關係，我們先列出已知的資訊：</p>
-<table>
-<thead>
-<tr>
-<th>項目</th>
-<th>屬性</th>
-<th>附註</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>圓形</td>
-<td>x, y, r</td>
-<td>x, y為圓心座標</td>
-</tr>
-<tr>
-<td>矩形</td>
-<td>x, y, w, h</td>
-<td>x, y為矩形左上角座標</td>
-</tr>
-</tbody>
-</table>
-<p>好，這次是真正的難題了，在場有同學能為我們指引方向嗎？ （等一下）</p>
-<h3 id="找尋規律"><a href="#找尋規律" class="headerlink" title="找尋規律"></a>找尋規律</h3><p>我們先來亂猜看看，今天如果把一顆球從矩形右邊靠近，我們只要注意球的圓心到矩形右邊的距離，是否小於半徑就可以了；那如果從上面靠近呢？嗯…那應該就要跟上邊比才對；那如果從左邊來就跟左邊比、下面來就跟下邊比，好像沒有很難吼？</p>
-<h3 id="發現例外"><a href="#發現例外" class="headerlink" title="發現例外"></a>發現例外</h3><p>那如果從<strong>左上方</strong>來呢？該跟誰比勒？<br>今天這顆球假如在矩形的右上方，圓心跟矩形左側及上側的距離已經小於半徑，也就是我們原先以為應該要碰到的情況，但實際上並沒有碰到。這又該怎麼辦？</p>
-<img src="/2018/08/02/FireWheel2/circle_to_rect3.svg.png" class="slug">
-<p>看來計算圓心到邊的距離並不完全正確，<br>如果我們要計算圓形是否有碰到矩形，那是否能利用圓形到矩形的最短距離呢？!<br>只要判斷圓心到矩形的最短距離是否有小於半徑，應該就可以了吧！<br>沒錯！這就是圓形對矩形的核心概念，透過判斷最短距離是否小於半徑，來檢測圓是否有碰到矩形。</p>
-<p>因此我們要來找出一個矩形最靠近圓心的那個<strong>點</strong>在哪裡，透過這個點和圓心的距離，來判斷圓是否有碰觸到矩形。</p>
-<h3 id="計算最靠近的點"><a href="#計算最靠近的點" class="headerlink" title="計算最靠近的點"></a>計算最靠近的點</h3><img src="/2018/08/02/FireWheel2/circle_to_rect2.svg.png" class="slug">
-<p>首先，假如矩形不存在，最靠近圓心的點在哪裡？<strong>就在圓心</strong>，我知道這樣講是廢話，但只要我們把圓心的x, y給限制在矩形的範圍中，讓它盡可能的接近圓心，就可以找到最近點了。</p>
-<p>所謂 <strong>「限制」</strong> 的意思是說，假如這個點比矩形的<strong>右邊還右</strong>，那就將它<strong>設定為矩形的右邊</strong>；如果比矩形的<strong>左邊還左</strong>，就將它<strong>設定為矩形的左邊</strong>；假如它沒有超過矩形的座標範圍，那就保持它原先的座標。上下邊以此類推。</p>
-<p>那我們將上述講的「限制範圍」這件事寫成一個函數，讓我們後面可以重複呼叫。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">定義 set_range 函數，將數值 number 設定在 minimal 到 maximum之間的範圍。</span></span><br><span class="line"><span class="string">輸入：最小值、最大值、欲計算數字</span></span><br><span class="line"><span class="string">輸出：計算後結果，介於minimal ~ maximum 之間</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_range</span> <span class="params">(minimal, maximum, number)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> number &gt; maximum:</span><br><span class="line">        <span class="keyword">return</span> maximum</span><br><span class="line">    <span class="keyword">elif</span> number &lt; minimal:</span><br><span class="line">        <span class="keyword">return</span> minimal</span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        <span class="keyword">return</span> number</span><br><span class="line"></span><br><span class="line"><span class="comment"># 實做：林宏信 2018-7-25</span></span><br></pre></td></tr></table></figure>
-<p>那我們接下來只要將數字分別帶入函數中即可。<br>矩形的左邊即x, 右邊為x + w<br>矩形的上面是y, 下面是y + h<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">定義 圓形矩形碰撞檢測函數</span></span><br><span class="line"><span class="string">輸入: c: 圓形物件，帶有 x, y, r屬性</span></span><br><span class="line"><span class="string">     r: 矩形物件, 帶有 x, y, w, h屬性</span></span><br><span class="line"><span class="string">輸出：碰到: True / 沒碰到: False</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">circle_to_rect</span> <span class="params">(c, r)</span>:</span></span><br><span class="line">    x = set_range(r.x, r.x + r.w, c.x) <span class="comment"># 呼叫上方定義的限制範圍函數</span></span><br><span class="line">    y = set_range(r.y, r.y + r.h, c.y)</span><br><span class="line">    d = ((c.x - x) ** <span class="number">2</span> + (c.y - y) ** <span class="number">2</span>) ** <span class="number">0.5</span> <span class="comment"># 跟前面一樣利用畢氏定理求距離的算式</span></span><br><span class="line">    <span class="keyword">return</span> d &lt; c.r <span class="comment">#回傳「最短距離是否小於圓的半徑」的比較結果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#實做：林宏信 2018-7-25</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="叫那隻殭屍…給我滾開！！"><a href="#叫那隻殭屍…給我滾開！！" class="headerlink" title="叫那隻殭屍…給我滾開！！"></a>叫那隻殭屍…給我滾開！！</h2><p>在我的遊戲中，有一種怪物 —殭屍，它會不停朝著玩家移動，玩家碰到就會被攻擊。但問題來了，我們只會朝著一個「角度」前進，並不會朝著一組「座標」前進啊！</p>
+<p>要朝著一組座標前進其實有兩種解法，一是先算出朝向目標的角度，再等速前進；二是算出x與y分別平均須移動多少。<br>在這個單元我會先介紹第二個方法，找出角度的部份我會放在下個單元介紹。</p>
+<h3 id="平均的-x-與-y"><a href="#平均的-x-與-y" class="headerlink" title="平均的 x 與 y"></a>平均的 x 與 y</h3><p>假設我們要從 (0, 0) 移動到 (3, 4) ，那我們就是將x座標增加3、y座標增加4。你可能會覺得：嗯…這還用說嗎？但是！假如我們今天要<strong>慢動作</strong>呢？<br>假如今天我不要一瞬間就從 (0, 0) 移動到 (3, 4)，而是分成十次進行呢？</p>
+<p>簡單嘛！把 3 / 10、 4 / 10，一次移動 (0.3, 0.4) 不就好了？</p>
+<p>是的，剛才這一串很像是廢話的描述，其實就是解題的關鍵！</p>
+<p>怎麼說？從我們剛才的推論，我們得知，要將x平均移動，只要把總共<strong>需要移動的x長度</strong>，在本範例中就是3，除上<strong>分解的次數</strong>，在本範例中就是10。<br>不過，有時候我們並不知道要分解成幾次啊。如果我想要等速運動，我只會知道我的速度會是多少，但不會知道我總共要分解幾次，這該怎麼辦？</p>
+<p>我們搬出距離與速度公式: 距離 = 速度 * 時間。所以時間就會等於 <strong>距離 / 速度</strong>。速度我們已經設定好了，那距離就是用畢氏定理，以此範例來說就是5，我們接下來用 distance 作為代號。</p>
+<p>因此，計算x的完整算式就是：x / (distance / speed)，我們化簡一下，就會變成 x / distance <em> speed。那y就會是 y / distance </em> speed。</p>
+<p>這一段…怎麼看起來有點眼熟？x就是鄰邊，distance就是斜邊，鄰邊除上斜邊…天啊！我們正在算三角函數！cos的定義就是鄰邊除上斜邊，而這正是我們現在正在做的！<br>所以其實我們並不一定要使用三角函數才能達成，有的時候，我們甚至可以透過實際的數字來「自己算出三角函數」。</p>
+<p>那以下實做將定義在殭屍類別 Zombie 之中的物件方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">定義 Zombie 與 Zombie.near 方法，near輸入target目標與移動速度</span></span><br><span class="line"><span class="string">輸入：target :帶有 x, y兩個屬性</span></span><br><span class="line"><span class="string">     speed :移動的速度</span></span><br><span class="line"><span class="string">輸出</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Zombie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.x = <span class="number">0</span></span><br><span class="line">        self.y = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">near</span> <span class="params">(self, target, speed)</span>:</span></span><br><span class="line">        x, y = target.x - self.x, target.y - self.y</span><br><span class="line">        d = (x ** <span class="number">2</span> + y ** <span class="number">2</span>) ** <span class="number">0.5</span></span><br><span class="line">        self.x += x / d * speed</span><br><span class="line">        self.y += y / d * speed</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>作者: <a href="http://yoursite.com">lancatlin 林宏信</a>
-            <p>發表日期: <a href="http://yoursite.com/2018/08/02/FireWheel2/">August 2nd 2018, 5:45:28</a>
+            <p>發表日期: <a href="http://yoursite.com/2018/08/02/FireWheel3/">August 2nd 2018, 6:16:09</a>
             <p>版權聲明: 歡迎分享文章。如要轉載須標明文章連結</p>
         </div>
     
@@ -459,17 +432,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/08/02/FireWheel3/" title= 移動 三角函數 FireWheel火輪手槍(三) >
-                    <div class="nextTitle">移動 三角函數 FireWheel火輪手槍(三)</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/08/01/FireWheel1/" title= 圓形碰撞檢測 FireWheel火輪手槍(一) >
-                    <div class="prevTitle">圓形碰撞檢測 FireWheel火輪手槍(一)</div>
+                <a href= "/2018/08/02/FireWheel2/" title= 矩形碰撞檢測 FireWheel火輪手槍(二) >
+                    <div class="prevTitle">矩形碰撞檢測 FireWheel火輪手槍(二)</div>
                 </a>
             
         </li>
@@ -565,7 +533,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#矩形對矩形"><span class="toc-number">1.</span> <span class="toc-text">矩形對矩形</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#註：矩形的表示方式-XYWH"><span class="toc-number">1.1.</span> <span class="toc-text">註：矩形的表示方式 XYWH</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#…那圓形對矩形呢？"><span class="toc-number">2.</span> <span class="toc-text">…那圓形對矩形呢？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#找尋規律"><span class="toc-number">2.1.</span> <span class="toc-text">找尋規律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#發現例外"><span class="toc-number">2.2.</span> <span class="toc-text">發現例外</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#計算最靠近的點"><span class="toc-number">2.3.</span> <span class="toc-text">計算最靠近的點</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Move-Your-Body-—三角函數"><span class="toc-number">1.</span> <span class="toc-text">Move Your Body!! —三角函數</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三角函數是什麼？"><span class="toc-number">1.0.1.</span> <span class="toc-text">三角函數是什麼？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#讓我朝著60度前進吧！"><span class="toc-number">1.1.</span> <span class="toc-text">讓我朝著60度前進吧！</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#弧度"><span class="toc-number">1.1.1.</span> <span class="toc-text">弧度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#叫那隻殭屍…給我滾開！！"><span class="toc-number">1.2.</span> <span class="toc-text">叫那隻殭屍…給我滾開！！</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#平均的-x-與-y"><span class="toc-number">1.2.1.</span> <span class="toc-text">平均的 x 與 y</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
